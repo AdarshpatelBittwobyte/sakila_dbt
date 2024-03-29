@@ -1,0 +1,75 @@
+version: 2
+
+sources:
+  - name: adventure
+    database: adventure_db 
+    schema:  stg
+    tables:
+      - name: salesorderheader
+      - name: salesorderdetail
+      - name: product
+      - name: product_sub_category
+      - name: product_category
+      - name: customer
+      - name: salesterritory
+      - name: targetsales
+
+      
+models:
+  - name: dim_customer
+    description: ""
+    columns:
+      - name: customer_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+
+models:
+  - name: dim_product
+    description: ""
+    columns:
+      - name: product_id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+
+models:
+  - name: dim_product_view
+    description: ""
+    columns:
+      - name: product_id
+        description: "The primary key for this table"
+        tests:
+          - not_null
+
+models:
+  - name: 
+    description: "gap_actual_revenue"
+    columns:
+      - name: product_id
+        description: "The primary key for this table"
+        tests:
+          - not_null
+
+models:
+  - name: top_territories
+    description: ""
+    columns:
+      - name: territory_id
+        description: "The primary key for this table"
+        tests:
+          - not_null
+
+models:
+  - name: yearly_sales_growth
+    description: ""
+    columns:
+      - name: territory_id
+        description: "The primary key for this table"
+        tests:
+          - not_null
+
+ 
