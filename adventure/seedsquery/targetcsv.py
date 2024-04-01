@@ -34,7 +34,7 @@ group by sales_person_id
 # Fetch all rows from the result set
 rows = cur.fetchall()
 
-folder_path = "C:\\sakila_dbt_course\\adventure\\seeds"
+folder_path = "C:\\sakila_dbt\\adventure\\seeds"
 # Define the path for the CSV file
 csv_file_path = os.path.join(folder_path, "targetsales.csv")
 
