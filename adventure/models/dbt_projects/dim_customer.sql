@@ -41,3 +41,8 @@ st.cost_last_year::int
 )
 
 SELECT * FROM final
+where 1=1
+
+ {% if is_incremental() %}
+ and  MODIFIED_DATE::timestamp > (select max(MODIFIED_DATE) from {{this}})
+  {% endif %}

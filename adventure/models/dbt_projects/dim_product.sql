@@ -69,4 +69,8 @@ inner join productcategory pc ON pc.product_category_id = ps.product_category_id
 
 select *
 from final_product
- 
+ where 1=1
+
+ {% if is_incremental() %}
+ and  MODIFIED_DATE::timestamp > (select max(MODIFIED_DATE) from {{this}})
+  {% endif %}
