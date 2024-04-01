@@ -72,4 +72,11 @@ models:
         tests:
           - not_null
 
- 
+models:
+  - name: fact_sales
+    description: ""
+    columns:
+      - name: sales_order_detail_id
+        description: "The primary key for this table"
+        tests:
+          - not_null

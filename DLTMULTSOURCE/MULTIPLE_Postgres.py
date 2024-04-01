@@ -7,7 +7,7 @@ from sqlalchemy import create_engine, inspect
 
 # Get the absolute path to the directory containing the script
 script_dir = os.path.dirname(os.path.abspath(__file__))
-config_path = os.path.join(script_dir, "Config.toml")
+config_path = os.path.join(script_dir, "Credentials.toml")
 
 # Load configurations from Config.toml
 config = toml.load(config_path)

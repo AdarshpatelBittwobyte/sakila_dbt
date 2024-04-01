@@ -1,6 +1,6 @@
 {{ config(
     materialized='incremental',
-    unique_key='sales_order_id'
+    unique_key='sales_order_detail_id'
 ) }}
 
 WITH salesorderdetails AS (
@@ -26,8 +26,5 @@ final AS (
 )
 
 SELECT * FROM final
-where 1=1
 
- {% if is_incremental() %}
- and  MODIFIED_DATE::timestamp > (select max(MODIFIED_DATE) from {{this}})
-  {% endif %}
+ 
