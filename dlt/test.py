@@ -1,61 +1,40 @@
 import dlt
-import pandas as pd
-from sqlalchemy import create_engine, inspect, Table, MetaData
+from sqlalchemy import create_engine
+import toml
 
-# Connection configurations
-mysql_config = {
-    "database": "DummyDB",
-    "password": "welcome",
-    "username": "root",
-    "host": "localhost",
-    "port": 3306
+# Read credentials from TOML file
+credentials = toml.load("C:\sakila_dbt\dlt\config.toml")
+
+
+tables = {
+    "Production": ["Product", "ProductCategory", "ProductSubCategory"],
+    "sales": ["currency", "currencyrate", "customer","salesorderdetail","salesorderheader","salesperson","salesterritory","store"],
 }
 
-postgres_config = {
-    "database": "sakila_wh",
-    "password": "welcome",
-    "username": "postgres",
-    "schema": "prod",
-    "host": "localhost",
-    "port": 5432
-}
+# Create SQLAlchemy engine for SQL Server
+sql_server_connection_string = (
+    f"mssql+pyodbc:///?odbc_connect=DRIVER={credentials['sql_server']['driver']};"
+    f"SERVER={credentials['sql_server']['server']};"
+    f"DATABASE={credentials['sql_server']['database']};"
+    f"UID={credentials['sql_server']['username']};"
+    f"PWD={credentials['sql_server']['password']}"
+)
+sql_engine = create_engine(sql_server_connection_string)
 
-# Create MySQL engine
-mysql_url = f"mysql://{mysql_config['username']}:{mysql_config['password']}@{mysql_config['host']}:{mysql_config['port']}/{mysql_config['database']}"
-mysql_engine = create_engine(mysql_url)
-
-# Create PostgreSQL engine
-postgres_url = f"postgresql://{postgres_config['username']}:{postgres_config['password']}@{postgres_config['host']}:{postgres_config['port']}/{postgres_config['database']}"
-postgres_engine = create_engine(postgres_url)
-
-# Define pipeline
+# Initialize dlt pipeline
 pipeline = dlt.pipeline(
-    pipeline_name="from_database",
+    pipeline_name="AdventureWorks2019",
     destination="postgres",
-    dataset_name=postgres_config["schema"]
+    dataset_name=credentials["postgres"]["database"],
+    credentials=credentials["postgres"]
 )
 
-# Get table names from MySQL database
-mysql_inspector = inspect(mysql_engine)
-mysql_tables = mysql_inspector.get_table_names()
-
-# Get existing tables from PostgreSQL database
-postgres_inspector = inspect(postgres_engine)
-existing_postgres_tables = postgres_inspector.get_table_names(schema=postgres_config['schema'])
-
-# Iterate over tables and load data
-for table in mysql_tables:
-    try:
-        # Use pandas to read data directly from MySQL
-        df = pd.read_sql(f"SELECT * FROM {table}", con=mysql_engine)
-
-        # Check if the table exists in PostgreSQL, if not, create it
-        if table not in existing_postgres_tables:
-            df.head(0).to_sql(table, con=postgres_engine, schema=postgres_config['schema'], if_exists='replace', index=False)
-
-        # Load data into PostgreSQL
-        df.to_sql(table, con=postgres_engine, schema=postgres_config['schema'], if_exists='replace', index=False)
-
-        print(f"Successfully loaded data from {table}")
-    except Exception as e:
-        print(f"Error loading data from {table}: {e}")
+for schema, tables_list in tables.items():
+    for table in tables_list:
+        with sql_engine.connect() as conn:
+            query = f"SELECT * FROM {schema}.{table}"
+            result = conn.execute(query)
+            rows = result.fetchall()
+                
+        load_info = pipeline.run(rows, table_name=table, write_disposition="replace")
+        print(load_info)

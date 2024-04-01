@@ -1,14 +1,25 @@
-[mysql]
-database = "DummyDB"
-password = "welcome"
+ [mysql]
+type = "mysql"
 username = "root"
+password = "welcome"
 host = "localhost"
 port = 3306
+database = "DummyDb"
 
 [postgres]
-database = "sakila_wh"
-password = "welcome"
+type = "postgres"
 username = "postgres"
-schema = "prod"
+password = "welcome"
 host = "localhost"
 port = 5432
+database = "sakila_wh"
+schema = "test"
+
+[sql_server]
+type = "sql_server" 
+server = "B2B00024"
+database = "AdventureWorks2019"
+username = "sa"
+password = "welcome"
+trusted_connection = false
+driver = "ODBC Driver 17 for SQL Server"

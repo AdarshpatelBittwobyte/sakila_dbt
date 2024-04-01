@@ -33,6 +33,6 @@ final AS (
             WHEN ActualRevenue IS NOT NULL AND TargetRevenue IS NOT NULL THEN TargetRevenue - ActualRevenue 
             ELSE NULL 
         END AS RevenueGap
-    FROM SalesGrowth
+    FROM SalesGrowth 
 )
 select * from final
