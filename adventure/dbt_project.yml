@@ -17,7 +17,7 @@ clean-targets:
 
 models:
 
-  dbt_projects:
+  Adventure:
       +materialized: table
 
 on-run-end:

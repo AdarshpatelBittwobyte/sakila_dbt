@@ -7,25 +7,3 @@
     ON s.sales_order_id = s2.sales_order_id 
     WHERE EXTRACT(YEAR FROM ORDER_DATE) = '{{ year }}'
 {% endmacro %} 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- {% if dt | length > 10 %}
-        left({{ dt }}, 10)
-    {% else %}
-        {{ dt }}
-    {% endif %}
