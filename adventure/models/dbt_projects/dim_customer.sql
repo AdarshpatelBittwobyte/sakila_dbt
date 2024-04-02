@@ -1,6 +1,6 @@
 {{
   config(materialized='incremental', alias= 'dim_customers', unique_key='customer_id',
-  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE MODIFIED_DATE <> CURRENT_DATE {% endif %}'
+  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE modified_date <> CURRENT_DATE {% endif %}'
   )
 }}
 WITH CTC_customer AS (
@@ -42,8 +42,8 @@ cast('01/01/1999' as date)::timestamp as etl_time
 )
 
 SELECT * FROM final
-where 1=1
+/*where 1=1
 
- {% if is_incremental() %}
- and  MODIFIED_DATE::timestamp > (select max(MODIFIED_DATE) from {{this}})
-  {% endif %}
+ #--{% if is_incremental() %}
+ and  modified_date::timestamp > (select max(modified_date) from {{this}})
+  {% endif %}*/

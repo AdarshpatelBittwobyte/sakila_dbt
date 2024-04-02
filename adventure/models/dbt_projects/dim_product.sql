@@ -1,6 +1,6 @@
 {{
   config(materialized='incremental', alias= 'dim_products', unique_key='product_id',
-  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE MODIFIED_DATE <> CURRENT_DATE {% endif %}'
+  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE modified_date <> CURRENT_DATE {% endif %}'
   )
 }}
 -- Use a CTE to define your data transformation
@@ -70,8 +70,8 @@ inner join productcategory pc ON pc.product_category_id = ps.product_category_id
 
 select *
 from final_product
- where 1=1
+/* where 1=1
 
  {% if is_incremental() %}
- and  MODIFIED_DATE::timestamp > (select max(MODIFIED_DATE) from {{this}})
-  {% endif %}
+ and  modified_date::timestamp > (select max(modified_date) from {{this}})
+  {% endif %}*/
