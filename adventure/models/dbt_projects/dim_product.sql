@@ -1,8 +1,7 @@
 {{
-  config(materialized='incremental', alias= 'dim_products', unique_key='product_id',
-  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE modified_date <> CURRENT_DATE {% endif %}'
-  )
-}}
+  config(materialized='incremental', alias= 'dim_product', unique_key='product_id',
+  pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE MODIFIED_DATE <> CURRENT_DATE {% endif %}') }}   
+
 -- Use a CTE to define your data transformation
 with product_flag as (
     select 
@@ -33,7 +32,7 @@ from {{source('adventure','product_category')}}
 
 final_product AS (
 select 
-product_id::int
+p.product_id::int
 ,p.name::varchar(30) as Product_name 
 ,product_number::varchar(30)
 ,MAKE_FLAG::bool
@@ -70,8 +69,7 @@ inner join productcategory pc ON pc.product_category_id = ps.product_category_id
 
 select *
 from final_product
-/* where 1=1
-
- {% if is_incremental() %}
- and  modified_date::timestamp > (select max(modified_date) from {{this}})
-  {% endif %}*/
+where 1=1
+  {% if is_incremental() %}
+    and modified_date::timestamp > (select max(MODIFIED_DATE) from {{this}})
+  {% endif %}
