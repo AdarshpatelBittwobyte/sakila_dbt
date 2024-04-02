@@ -5,7 +5,7 @@ WITH cte_sales_order AS (
 --{%- set years = ['2011', '2012', '2013', '2014'] -%}
     
 {%- for year in years -%}
-    {{ config(materialized='incremental', unique_key=['sales_order_id', 'sales_order_detail_id'], alias='fact_sales_order') }}
+    {{ config(materialized='incremental', unique_key=['sales_order_id', 'sales_order_detail_id'], alias='fact_sales') }}
 
         select *
         from dwh.sales_order_year_{{ year }} 
@@ -23,19 +23,25 @@ salesorderheaders AS (
     SELECT * 
     FROM {{ source('adventure', 'salesorderheader') }}
 ),
+
 final AS (
-    SELECT
-        soh.sales_order_id,
-        sod.order_qty,
-        sod.unit_price,
-        soh.tax_amt,
-        (sod.order_qty * sod.unit_price) AS gross_sale,
-        (sod.order_qty * sod.unit_price - soh.tax_amt) AS net_sale,
-        cast('01/01/1999' as date)::timestamp as etl_time
+    SELECT sod.sales_order_id::int,
+    sod.sales_order_detail_id::int,
+    carrier_tracking_number::varchar(50),
+    order_qty::int,
+    product_id::int,
+    special_offer_id::int,
+    unit_price::numeric(38, 9),
+    unit_price_discount::numeric(38, 9),
+    line_total::numeric(38, 9),
+    sod.modified_date::timestamp,
+    soh.sub_total::numeric(38, 9) as Gross_sales,
+    soh.Total_due::numeric(38, 9) as Net_Sales,
+    cast('01/01/1999' as date)::timestamp as etl_time
     FROM  
         cte_sales_order sod
     INNER JOIN 
-        salesorderheaders soh ON soh.sales_order_id = sod.sales_order_detail_id
+        salesorderheaders soh ON sod.sales_order_id = soh.sales_order_id
 )
 
 SELECT * FROM final
