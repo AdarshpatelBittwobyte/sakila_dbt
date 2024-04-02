@@ -1,40 +1,42 @@
 import dlt
-from sqlalchemy import create_engine
-import toml
+from sqlalchemy import create_engine, text
 
-# Read credentials from TOML file
-credentials = toml.load("C:\sakila_dbt\dlt\config.toml")
+# Define PostgreSQL credentials
+postgres_credentials = {
+    "database": "adventure_db",
+    "username": "postgres",
+    "password": "welcome",
+    "host": "localhost"
+}
 
-
+# Define tables and schema
 tables = {
     "Production": ["Product", "ProductCategory", "ProductSubCategory"],
     "sales": ["currency", "currencyrate", "customer","salesorderdetail","salesorderheader","salesperson","salesterritory","store"],
 }
 
-# Create SQLAlchemy engine for SQL Server
-sql_server_connection_string = (
-    f"mssql+pyodbc:///?odbc_connect=DRIVER={credentials['sql_server']['driver']};"
-    f"SERVER={credentials['sql_server']['server']};"
-    f"DATABASE={credentials['sql_server']['database']};"
-    f"UID={credentials['sql_server']['username']};"
-    f"PWD={credentials['sql_server']['password']}"
-)
-sql_engine = create_engine(sql_server_connection_string)
+# Create SQLAlchemy engine
+engine = create_engine("mssql+pyodbc:///?odbc_connect="
+                                    "DRIVER={ODBC Driver 17 for SQL Server};"
+                                    "SERVER=B2B00024;"
+                                    "DATABASE=AdventureWorks2019;"
+                                    "trusted_connection=yes")
 
-# Initialize dlt pipeline
+# Create pipeline
 pipeline = dlt.pipeline(
-    pipeline_name="AdventureWorks2019",
-    destination="postgres",
-    dataset_name=credentials["postgres"]["database"],
-    credentials=credentials["postgres"]
+    pipeline_name="from_database",
+    destination=dlt.destinations.postgres(credentials=postgres_credentials),  # Pass PostgreSQL credentials to destination
+    dataset_name="stg"
 )
 
+# Loop through tables and load data
 for schema, tables_list in tables.items():
     for table in tables_list:
-        with sql_engine.connect() as conn:
-            query = f"SELECT * FROM {schema}.{table}"
+        query = text(f"SELECT * FROM {schema}.{table}")  # Construct SQL query as a text object
+        with engine.connect() as conn:
             result = conn.execute(query)
             rows = result.fetchall()
-                
+            
+        # Run pipeline for each table
         load_info = pipeline.run(rows, table_name=table, write_disposition="replace")
         print(load_info)

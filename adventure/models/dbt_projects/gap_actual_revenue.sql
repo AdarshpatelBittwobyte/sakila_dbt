@@ -14,9 +14,9 @@ SalesGrowth AS (
         s1.SalesYear,
         s1.NetSales AS ActualRevenue,
         LAG(s1.NetSales) OVER (PARTITION BY s1.Sales_Person_ID ORDER BY s1.SalesYear) AS LastYearRevenue,
-        t.Target AS TargetRevenue
+        t."Target" AS TargetRevenue
     FROM YearlySales s1
-    INNER JOIN  {{source('adventure','targetsales')}} t ON s1.Sales_Person_ID = t.SalesPersonID
+    INNER JOIN  {{source('adventure','targetsales')}} t ON s1.Sales_Person_ID = t."SalesPersonID"
 ),
 final AS (
     SELECT 
