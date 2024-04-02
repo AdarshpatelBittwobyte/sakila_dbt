@@ -5,7 +5,7 @@ WITH YearlySales AS (
     SELECT 
         EXTRACT(YEAR FROM Order_Date) AS OrderYear,
         Territory_ID,
-        ROUND(SUM(sub_total), 2) AS NetSales
+        ROUND(SUM(sub_total), 2) AS YearlySales
     FROM 
         {{source('adventure','salesorderheader')}}
     GROUP BY 
@@ -15,11 +15,11 @@ YearlySalesWithGrowth AS (
     SELECT
         OrderYear,
         Territory_ID,
-        NetSales,
-        LAG(NetSales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear) AS PreviousYearSales,
+        YearlySales AS CurrentYearSales,
+        COALESCE(LAG(YearlySales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear), 0) AS PreviousYearSales,
         CASE 
-            WHEN LAG(NetSales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear) IS NOT NULL 
-            THEN ROUND(((NetSales - LAG(NetSales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear)) / LAG(NetSales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear)) * 100, 2)
+            WHEN LAG(YearlySales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear) IS NOT NULL 
+            THEN ROUND(((YearlySales - COALESCE(LAG(YearlySales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear), 0)) / COALESCE(LAG(YearlySales) OVER (PARTITION BY Territory_ID ORDER BY OrderYear), 0)) * 100, 1)
             ELSE NULL
         END AS GrowthPercentage
     FROM 
@@ -28,8 +28,9 @@ YearlySalesWithGrowth AS (
 SELECT 
     OrderYear,
     Territory_ID,
-    NetSales,
+    CurrentYearSales,
     PreviousYearSales,
     GrowthPercentage
 FROM 
     YearlySalesWithGrowth
+order by OrderYear,Territory_ID

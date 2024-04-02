@@ -4,35 +4,43 @@ WITH YearlySales AS (
     SELECT 
         Sales_Person_ID,
         EXTRACT(YEAR FROM Order_Date) AS SalesYear,
-        SUM(sub_total) AS NetSales
+        SUM(sub_total) AS YearlySales
     FROM   {{source('adventure','salesorderheader')}}
     GROUP BY Sales_Person_ID, SalesYear
 ),
 SalesGrowth AS (
     SELECT 
-        s1.Sales_Person_ID,
-        s1.SalesYear,
-        s1.NetSales AS ActualRevenue,
-        LAG(s1.NetSales) OVER (PARTITION BY s1.Sales_Person_ID ORDER BY s1.SalesYear) AS LastYearRevenue,
-        t."Target" AS TargetRevenue
+        Sales_Person_ID,
+        SalesYear,
+        ROUND(YearlySales, 2) AS CurrentYearSales,
+        t."Target" AS TargetRevenue,
+        COALESCE(LAG(YearlySales) OVER (PARTITION BY sales_person_id ORDER BY SalesYear), 0) AS LastYearSales,
+        CASE 
+            WHEN LAG(YearlySales) OVER (PARTITION BY sales_person_id ORDER BY SalesYear) IS NULL THEN NULL 
+            ELSE ROUND((((YearlySales - COALESCE(LAG(YearlySales) OVER (PARTITION BY sales_person_id ORDER BY SalesYear), 0))
+            / COALESCE(LAG(YearlySales) OVER (PARTITION BY sales_person_id ORDER BY SalesYear), 0)) * 100), 1)
+        END AS GrowthRate,
+         CASE 
+            WHEN LAG(YearlySales) OVER (PARTITION BY sales_person_id ORDER BY SalesYear) IS NULL THEN NULL 
+            ELSE 
+            ROUND((YearlySales::numeric - "Target"::numeric), 2)
+        END AS RevenueGap
     FROM YearlySales s1
-    INNER JOIN  {{source('adventure','targetsales')}} t ON s1.Sales_Person_ID = t."SalesPersonID"
+    Left JOIN  {{source('adventure','targetsales')}} t ON s1.Sales_Person_ID = t."SalesPersonID"
+     
 ),
 final AS (
     SELECT 
         Sales_Person_ID,
         SalesYear,
-        ActualRevenue,
-        LastYearRevenue,
+        CurrentYearSales,
         TargetRevenue,
-        CASE 
-            WHEN LastYearRevenue IS NOT NULL AND LastYearRevenue <> 0 THEN CONCAT(ROUND(((ActualRevenue - LastYearRevenue) / LastYearRevenue) * 100, 2), '%')
-            ELSE NULL 
-        END AS GrowthRate,
-        CASE 
-            WHEN ActualRevenue IS NOT NULL AND TargetRevenue IS NOT NULL THEN TargetRevenue - ActualRevenue 
-            ELSE NULL 
-        END AS RevenueGap
+        LastYearSales,
+        GrowthRate,
+        RevenueGap
     FROM SalesGrowth 
+    order by Sales_Person_ID,SalesYear
 )
 select * from final
+ORDER BY 
+    sales_person_id,SalesYear
