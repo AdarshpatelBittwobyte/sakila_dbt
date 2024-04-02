@@ -1,5 +1,5 @@
 {{
-  config(materialized='incremental', alias= 'dim_product', unique_key='product_id',
+  config(materialized='incremental', alias= 'dim_products', unique_key='product_id',
   pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE MODIFIED_DATE <> CURRENT_DATE {% endif %}'
   )
 }}
@@ -62,6 +62,7 @@ product_id::int
 ,pc.name::varchar(30) as Category_name
 ,ps.product_subcategory_id::int
 ,ps.name::varchar(30) as Subcategory_name 
+,cast('01/01/1999' as date)::timestamp as etl_time
 from product p
 inner join productsubcategory ps ON ps.product_subcategory_id = p.product_subcategory_id
 inner join productcategory pc ON pc.product_category_id = ps.product_category_id

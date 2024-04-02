@@ -17,7 +17,8 @@ clean-targets:
 
 models:
 
-  Adventure:
+  dbt_projects:
       +materialized: table
 
- 
+on-run-end:
+  - "{{update_etl_time() }}"

@@ -1,5 +1,5 @@
 {{
-  config(materialized='incremental', alias= 'dim_customer', unique_key='customer_id',
+  config(materialized='incremental', alias= 'dim_customers', unique_key='customer_id',
   pre_hook='{% if is_incremental() %} DELETE FROM {{ this }} WHERE MODIFIED_DATE <> CURRENT_DATE {% endif %}'
   )
 }}
@@ -32,7 +32,8 @@ st.group::varchar(30),
 st.sales_ytd::numeric(38, 9),
 st.sales_last_year::numeric(38, 9),
 st.cost_ytd::int,
-st.cost_last_year::int 
+st.cost_last_year::int,
+cast('01/01/1999' as date)::timestamp as etl_time
 
     FROM 
         CTC_customer c

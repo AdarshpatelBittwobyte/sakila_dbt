@@ -1,9 +1,9 @@
 {%- set years = ['2011', '2012', '2013', '2014'] -%}
 
 {%- for year in years -%}
-    {{ config(materialized='incremental', unique_key=['sales_order_id', 'sales_order_detail_id'], alias='fact_sales') }}
+    {{ config(materialized='incremental', unique_key=['sales_order_id', 'sales_order_detail_id'], alias='fact_sales_order') }}
 
-        select *
+        select *,cast('01/01/1999' as date)::timestamp as etl_time
         from dwh.sales_order_year_{{ year }} 
         where 1=1
          {% if is_incremental() %}
