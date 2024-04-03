@@ -1,13 +1,15 @@
+import os
 import dlt
 from sqlalchemy import create_engine, text
+import toml
 
-# Define PostgreSQL credentials
-postgres_credentials = {
-    "database": "adventure_db",
-    "username": "postgres",
-    "password": "welcome",
-    "host": "localhost"
-}
+# Get the absolute path to the directory containing the script
+script_dir = os.path.dirname(os.path.abspath(__file__))
+toml_path = os.path.join(script_dir, "config.toml")
+
+# Load credentials from TOML file
+with open(toml_path, "r") as f:
+    credentials = toml.load(f)
 
 # Define tables and schema
 tables = {
@@ -16,17 +18,13 @@ tables = {
 }
 
 # Create SQLAlchemy engine
-engine = create_engine("mssql+pyodbc:///?odbc_connect="
-                                    "DRIVER={ODBC Driver 17 for SQL Server};"
-                                    "SERVER=B2B00024;"
-                                    "DATABASE=AdventureWorks2019;"
-                                    "trusted_connection=yes")
+engine = create_engine(credentials["sql_server"]["connection_string"])
 
 # Create pipeline
 pipeline = dlt.pipeline(
     pipeline_name="from_database",
-    destination=dlt.destinations.postgres(credentials=postgres_credentials),  # Pass PostgreSQL credentials to destination
-    dataset_name="stg"
+    destination=dlt.destinations.postgres(credentials={**credentials["postgres"], "schema": credentials["postgres"]["schema"]}),  # Pass PostgreSQL credentials and schema to destination
+    dataset_name="test"
 )
 
 # Loop through tables and load data
@@ -40,3 +38,5 @@ for schema, tables_list in tables.items():
         # Run pipeline for each table
         load_info = pipeline.run(rows, table_name=table, write_disposition="replace")
         print(load_info)
+
+  

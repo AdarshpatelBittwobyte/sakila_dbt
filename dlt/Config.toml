@@ -1,3 +1,5 @@
+
+
  [mysql]
 type = "mysql"
 username = "root"
@@ -6,20 +8,14 @@ host = "localhost"
 port = 3306
 database = "DummyDb"
 
+ 
+ 
+[sql_server]
+connection_string = "mssql+pyodbc:///?odbc_connect=DRIVER={ODBC Driver 17 for SQL Server};SERVER=B2B00024;DATABASE=AdventureWorks2019;trusted_connection=yes"
+
 [postgres]
-type = "postgres"
+database = "adventure_db"
 username = "postgres"
 password = "welcome"
 host = "localhost"
-port = 5432
-database = "sakila_wh"
 schema = "test"
-
-[sql_server]
-type = "sql_server" 
-server = "B2B00024"
-database = "AdventureWorks2019"
-username = "sa"
-password = "welcome"
-trusted_connection = false
-driver = "ODBC Driver 17 for SQL Server"
