@@ -3,22 +3,29 @@ import dlt
 from dlt.sources import incremental
 from sqlalchemy import create_engine, text
 from sql_database import sql_database
+from sqlalchemy import text
 
 def load_database_table(credential, db_name, db_schema, incremental_by):
     try:
+        engine = create_engine(credential)  # Assuming credential is a connection string
         source = sql_database(credentials=credential, schema=db_schema)
         for table_name in source.resources.keys():
+            with engine.connect() as conn:
+                query = text(f"SELECT COUNT(*) FROM {db_schema}.{table_name}")
+                result = conn.execute(query)
+                row_count = result.fetchone()[0]
+                print(f"Number of rows in {table_name} before loading: {row_count}")
+            
             incremental_source = incremental(incremental_by, initial_value=pendulum.datetime(1999, 1, 1, 0, 0, 0))
             source.resources[table_name].apply_hints(incremental=incremental_source)
             pipeline = dlt.pipeline(
                 pipeline_name=db_name, destination="postgres", dataset_name="loaded_data"
             )
             info = pipeline.run(source.with_resources(table_name), table_name=f"{table_name}_{db_name}", write_disposition="merge")
-            normalize_info = pipeline.last_trace.last_normalize_info
-            print(f"processed for {table_name}")
+          #  normalize_info = pipeline.last_trace.last_normalize_info
+          #  print(f"Number of rows processed for {table_name}: {normalize_info.row_counts.get(table_name, 0)}")
     except Exception as e:
         print(f"Error loading data for {db_name}: {e}")
-
 if __name__ == "__main__":
     try:
         engine = create_engine("postgresql://postgres:welcome_1234@localhost:5432/sakila_wh")
