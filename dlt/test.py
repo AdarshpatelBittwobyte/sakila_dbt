@@ -22,8 +22,7 @@ def load_database_table(credential, db_name, db_schema, incremental_by):
                 pipeline_name=db_name, destination="postgres", dataset_name="loaded_data"
             )
             info = pipeline.run(source.with_resources(table_name), table_name=f"{table_name}_{db_name}", write_disposition="merge")
-          #  normalize_info = pipeline.last_trace.last_normalize_info
-          #  print(f"Number of rows processed for {table_name}: {normalize_info.row_counts.get(table_name, 0)}")
+        
     except Exception as e:
         print(f"Error loading data for {db_name}: {e}")
 if __name__ == "__main__":
