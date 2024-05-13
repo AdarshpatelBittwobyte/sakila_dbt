@@ -1,0 +1,103 @@
+2024-05-13 12:17:06,619 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.62 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582825.0639973 is LOADED and contains no failed jobs
+2024-05-13 12:17:06,619 - INFO - salesorderdetail: Row counts: {}
+2024-05-13 12:17:08,724 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.69 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582827.1204877 is LOADED and contains no failed jobs
+2024-05-13 12:17:08,727 - INFO - product_sub_category: Row counts: {}
+2024-05-13 12:17:10,616 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.59 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582829.1191163 is LOADED and contains no failed jobs
+2024-05-13 12:17:10,622 - INFO - salesterritory: Row counts: {}
+2024-05-13 12:17:12,441 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.50 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582831.0079162 is LOADED and contains no failed jobs
+2024-05-13 12:17:12,441 - INFO - salesorderheader: Row counts: {}
+2024-05-13 12:17:14,314 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.52 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582832.8625817 is LOADED and contains no failed jobs
+2024-05-13 12:17:14,315 - INFO - currency: Row counts: {}
+2024-05-13 12:17:16,128 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.48 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582834.714515 is LOADED and contains no failed jobs
+2024-05-13 12:17:16,143 - INFO - store: Row counts: {}
+2024-05-13 12:17:16,729 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:16,743 - INFO - product: Row counts: {}
+2024-05-13 12:17:18,524 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.47 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582837.1430295 is LOADED and contains no failed jobs
+2024-05-13 12:17:18,524 - INFO - currencyrate: Row counts: {}
+2024-05-13 12:17:20,365 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.49 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582838.96188 is LOADED and contains no failed jobs
+2024-05-13 12:17:20,365 - INFO - salesperson: Row counts: {}
+2024-05-13 12:17:22,423 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.47 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582841.052774 is LOADED and contains no failed jobs
+2024-05-13 12:17:22,427 - INFO - product_category: Row counts: {}
+2024-05-13 12:17:24,588 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.49 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582842.8713372 is LOADED and contains no failed jobs
+2024-05-13 12:17:24,597 - INFO - customer: Row counts: {}
+2024-05-13 12:17:24,661 - INFO - Duration of the process: 20 seconds
+2024-05-13 12:17:25,527 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:25,527 - INFO - salesorderdetail: Row counts: {}
+2024-05-13 12:17:26,182 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:26,201 - INFO - product_sub_category: Row counts: {}
+2024-05-13 12:17:28,042 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.53 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582846.5958674 is LOADED and contains no failed jobs
+2024-05-13 12:17:28,042 - INFO - salesterritory: Row counts: {}
+2024-05-13 12:17:30,176 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.62 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582848.4934907 is LOADED and contains no failed jobs
+2024-05-13 12:17:30,176 - INFO - salesorderheader: Row counts: {}
+2024-05-13 12:17:30,974 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:30,974 - INFO - currency: Row counts: {}
+2024-05-13 12:17:31,581 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:31,581 - INFO - store: Row counts: {}
+2024-05-13 12:17:32,374 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:32,374 - INFO - product: Row counts: {}
+2024-05-13 12:17:32,987 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:32,992 - INFO - currencyrate: Row counts: {}
+2024-05-13 12:17:33,595 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:33,595 - INFO - salesperson: Row counts: {}
+2024-05-13 12:17:34,228 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-05-13 12:17:34,228 - INFO - product_category: Row counts: {}
+2024-05-13 12:17:36,555 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.47 seconds
+1 load package(s) were loaded to destination postgres and into dataset src_load_inc
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1715582854.7162912 is LOADED and contains no failed jobs
+2024-05-13 12:17:36,568 - INFO - customer: Row counts: {}
+2024-05-13 12:17:36,636 - INFO - Duration of the process: 11 seconds

@@ -1,0 +1,597 @@
+2024-04-24 15:19:52,999 - INFO - Fetched database credentials
+2024-04-24 15:19:52,999 - INFO - Rows: [('adventure_db', 'dwh', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db'), ('adventure_db', 'stg', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db')]
+2024-04-24 15:19:52,999 - INFO - Processing database: adventure_db, schema: dwh
+2024-04-24 15:19:53,198 - INFO - Processing table: dim_customer
+2024-04-24 15:19:55,164 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.48 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952193.9694247 is LOADED and contains no failed jobs
+2024-04-24 15:19:55,180 - INFO - Processing table: dummytable
+2024-04-24 15:19:56,430 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.50 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952195.3022652 is LOADED and contains no failed jobs
+2024-04-24 15:19:56,442 - INFO - Processing table: dim_product
+2024-04-24 15:19:56,677 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-04-24 15:19:56,677 - INFO - Processing table: sales_order_year_2013
+2024-04-24 15:20:08,209 - INFO - Pipeline info: Pipeline adventure_db load step completed in 3.06 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952196.8225884 is LOADED and contains no failed jobs
+2024-04-24 15:20:08,217 - INFO - Processing table: fact_sales
+2024-04-24 15:20:28,659 - INFO - Pipeline info: Pipeline adventure_db load step completed in 6.52 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952208.3415036 is LOADED and contains no failed jobs
+2024-04-24 15:20:28,677 - INFO - Processing table: sales_order_year_2011
+2024-04-24 15:20:30,915 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.76 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952228.8207474 is LOADED and contains no failed jobs
+2024-04-24 15:20:30,921 - INFO - Processing table: sales_order_year_2014
+2024-04-24 15:20:38,861 - INFO - Pipeline info: Pipeline adventure_db load step completed in 2.28 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952231.1096606 is LOADED and contains no failed jobs
+2024-04-24 15:20:38,881 - INFO - Processing table: sales_order_year_2012
+2024-04-24 15:20:47,800 - INFO - Pipeline info: Pipeline adventure_db load step completed in 1.58 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952239.1600068 is LOADED and contains no failed jobs
+2024-04-24 15:20:47,800 - INFO - Processing database: adventure_db, schema: stg
+2024-04-24 15:20:48,048 - INFO - Processing table: targetsales
+2024-04-24 15:20:49,809 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.67 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952248.346497 is LOADED and contains no failed jobs
+2024-04-24 15:20:49,844 - INFO - Processing table: salesorderdetail
+2024-04-24 15:21:07,851 - INFO - Pipeline info: Pipeline adventure_db load step completed in 5.07 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952250.1343653 is LOADED and contains no failed jobs
+2024-04-24 15:21:07,864 - INFO - Processing table: product_sub_category
+2024-04-24 15:21:09,246 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.58 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952268.0349052 is LOADED and contains no failed jobs
+2024-04-24 15:21:09,261 - INFO - Processing table: salesterritory
+2024-04-24 15:21:10,749 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.56 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952269.457841 is LOADED and contains no failed jobs
+2024-04-24 15:21:10,758 - INFO - Processing table: salesorderheader
+2024-04-24 15:21:21,320 - INFO - Pipeline info: Pipeline adventure_db load step completed in 2.39 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952270.9666955 is LOADED and contains no failed jobs
+2024-04-24 15:21:21,337 - INFO - Processing table: currency
+2024-04-24 15:21:22,884 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.55 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952281.7105086 is LOADED and contains no failed jobs
+2024-04-24 15:21:22,899 - INFO - Processing table: store
+2024-04-24 15:21:24,451 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.61 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952283.1135316 is LOADED and contains no failed jobs
+2024-04-24 15:21:24,458 - INFO - Processing table: product
+2024-04-24 15:21:26,000 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.60 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952284.6156118 is LOADED and contains no failed jobs
+2024-04-24 15:21:26,025 - INFO - Processing table: currencyrate
+2024-04-24 15:21:29,062 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.88 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952286.2451382 is LOADED and contains no failed jobs
+2024-04-24 15:21:29,077 - INFO - Processing table: salesperson
+2024-04-24 15:21:30,759 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.75 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952289.2989204 is LOADED and contains no failed jobs
+2024-04-24 15:21:30,767 - INFO - Processing table: product_category
+2024-04-24 15:21:32,390 - INFO - Pipeline info: Pipeline adventure_db load step completed in 0.63 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952291.0249996 is LOADED and contains no failed jobs
+2024-04-24 15:21:32,401 - INFO - Processing table: customer
+2024-04-24 15:21:36,024 - INFO - Pipeline info: Pipeline adventure_db load step completed in 1.07 seconds
+1 load package(s) were loaded to destination postgres and into dataset test_load_table
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+Load package 1713952292.6528294 is LOADED and contains no failed jobs
+2024-04-24 15:21:39,742 - INFO - Fetched database credentials
+2024-04-24 15:21:39,742 - INFO - Rows: [('adventure_db', 'dwh', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db'), ('adventure_db', 'stg', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db')]
+2024-04-24 15:21:39,750 - INFO - Processing database: adventure_db, schema: dwh
+2024-04-24 15:21:40,142 - INFO - Processing table: dim_customer
+2024-04-24 15:21:40,557 - INFO - Pipeline info: Pipeline adventure_db load step completed in ---
+0 load package(s) were loaded to destination postgres and into dataset None
+The postgres destination used postgresql://postgres:***@localhost:5432/adventure_db location to store data
+2024-04-24 15:21:40,607 - INFO - Processing table: dummytable
+2024-04-24 15:21:41,548 - ERROR - Error loading dummytable: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:41,556 - INFO - Processing table: dim_product
+2024-04-24 15:21:41,811 - ERROR - Error loading dim_product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:41,821 - INFO - Processing table: sales_order_year_2013
+2024-04-24 15:21:42,044 - ERROR - Error loading sales_order_year_2013: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:42,052 - INFO - Processing table: fact_sales
+2024-04-24 15:21:42,303 - ERROR - Error loading fact_sales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:42,312 - INFO - Processing table: sales_order_year_2011
+2024-04-24 15:21:42,566 - ERROR - Error loading sales_order_year_2011: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:42,615 - INFO - Processing table: sales_order_year_2014
+2024-04-24 15:21:42,893 - ERROR - Error loading sales_order_year_2014: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:42,918 - INFO - Processing table: sales_order_year_2012
+2024-04-24 15:21:43,319 - ERROR - Error loading sales_order_year_2012: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:43,319 - INFO - Processing database: adventure_db, schema: stg
+2024-04-24 15:21:43,532 - INFO - Processing table: targetsales
+2024-04-24 15:21:43,918 - ERROR - Error loading targetsales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:43,949 - INFO - Processing table: salesorderdetail
+2024-04-24 15:21:44,639 - ERROR - Error loading salesorderdetail: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:44,660 - INFO - Processing table: product_sub_category
+2024-04-24 15:21:45,074 - ERROR - Error loading product_sub_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:45,086 - INFO - Processing table: salesterritory
+2024-04-24 15:21:45,817 - ERROR - Error loading salesterritory: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:45,886 - INFO - Processing table: salesorderheader
+2024-04-24 15:21:46,438 - ERROR - Error loading salesorderheader: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:46,476 - INFO - Processing table: currency
+2024-04-24 15:21:47,428 - ERROR - Error loading currency: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:47,459 - INFO - Processing table: store
+2024-04-24 15:21:47,867 - ERROR - Error loading store: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:47,883 - INFO - Processing table: product
+2024-04-24 15:21:48,292 - ERROR - Error loading product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:48,325 - INFO - Processing table: currencyrate
+2024-04-24 15:21:48,864 - ERROR - Error loading currencyrate: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:48,881 - INFO - Processing table: salesperson
+2024-04-24 15:21:49,325 - ERROR - Error loading salesperson: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:49,339 - INFO - Processing table: product_category
+2024-04-24 15:21:49,751 - ERROR - Error loading product_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:21:49,766 - INFO - Processing table: customer
+2024-04-24 15:21:50,507 - ERROR - Error loading customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:04,282 - INFO - Fetched database credentials
+2024-04-24 15:22:04,282 - INFO - Rows: [('adventure_db', 'dwh', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db'), ('adventure_db', 'stg', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db')]
+2024-04-24 15:22:04,282 - INFO - Processing database: adventure_db, schema: dwh
+2024-04-24 15:22:04,445 - INFO - Processing table: dim_customer
+2024-04-24 15:22:04,681 - ERROR - Error loading dim_customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:04,695 - INFO - Processing table: dummytable
+2024-04-24 15:22:04,924 - ERROR - Error loading dummytable: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:04,940 - INFO - Processing table: dim_product
+2024-04-24 15:22:05,228 - ERROR - Error loading dim_product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:05,236 - INFO - Processing table: sales_order_year_2013
+2024-04-24 15:22:05,487 - ERROR - Error loading sales_order_year_2013: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:05,495 - INFO - Processing table: fact_sales
+2024-04-24 15:22:05,732 - ERROR - Error loading fact_sales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:05,749 - INFO - Processing table: sales_order_year_2011
+2024-04-24 15:22:05,992 - ERROR - Error loading sales_order_year_2011: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:06,000 - INFO - Processing table: sales_order_year_2014
+2024-04-24 15:22:06,294 - ERROR - Error loading sales_order_year_2014: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:06,310 - INFO - Processing table: sales_order_year_2012
+2024-04-24 15:22:06,729 - ERROR - Error loading sales_order_year_2012: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:06,729 - INFO - Processing database: adventure_db, schema: stg
+2024-04-24 15:22:06,980 - INFO - Processing table: targetsales
+2024-04-24 15:22:07,231 - ERROR - Error loading targetsales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:07,248 - INFO - Processing table: salesorderdetail
+2024-04-24 15:22:07,516 - ERROR - Error loading salesorderdetail: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:07,524 - INFO - Processing table: product_sub_category
+2024-04-24 15:22:07,790 - ERROR - Error loading product_sub_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:07,798 - INFO - Processing table: salesterritory
+2024-04-24 15:22:08,124 - ERROR - Error loading salesterritory: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:08,132 - INFO - Processing table: salesorderheader
+2024-04-24 15:22:08,530 - ERROR - Error loading salesorderheader: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:08,546 - INFO - Processing table: currency
+2024-04-24 15:22:08,815 - ERROR - Error loading currency: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:08,823 - INFO - Processing table: store
+2024-04-24 15:22:09,090 - ERROR - Error loading store: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:09,098 - INFO - Processing table: product
+2024-04-24 15:22:09,334 - ERROR - Error loading product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:09,346 - INFO - Processing table: currencyrate
+2024-04-24 15:22:09,583 - ERROR - Error loading currencyrate: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:09,593 - INFO - Processing table: salesperson
+2024-04-24 15:22:09,830 - ERROR - Error loading salesperson: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:09,838 - INFO - Processing table: product_category
+2024-04-24 15:22:10,078 - ERROR - Error loading product_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:22:10,078 - INFO - Processing table: customer
+2024-04-24 15:22:10,341 - ERROR - Error loading customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:11,064 - INFO - Fetched database credentials
+2024-04-24 15:23:11,064 - INFO - Rows: [('adventure_db', 'dwh', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db'), ('adventure_db', 'stg', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db')]
+2024-04-24 15:23:11,064 - INFO - Processing database: adventure_db, schema: dwh
+2024-04-24 15:23:11,240 - INFO - Processing table: dim_customer
+2024-04-24 15:23:11,505 - ERROR - Error loading dim_customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:11,514 - INFO - Processing table: dummytable
+2024-04-24 15:23:11,778 - ERROR - Error loading dummytable: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:11,794 - INFO - Processing table: dim_product
+2024-04-24 15:23:12,079 - ERROR - Error loading dim_product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:12,095 - INFO - Processing table: sales_order_year_2013
+2024-04-24 15:23:12,355 - ERROR - Error loading sales_order_year_2013: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:12,363 - INFO - Processing table: fact_sales
+2024-04-24 15:23:12,602 - ERROR - Error loading fact_sales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:12,619 - INFO - Processing table: sales_order_year_2011
+2024-04-24 15:23:12,856 - ERROR - Error loading sales_order_year_2011: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:12,865 - INFO - Processing table: sales_order_year_2014
+2024-04-24 15:23:13,155 - ERROR - Error loading sales_order_year_2014: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:13,171 - INFO - Processing table: sales_order_year_2012
+2024-04-24 15:23:13,542 - ERROR - Error loading sales_order_year_2012: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:13,542 - INFO - Processing database: adventure_db, schema: stg
+2024-04-24 15:23:13,804 - INFO - Processing table: targetsales
+2024-04-24 15:23:14,070 - ERROR - Error loading targetsales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:14,078 - INFO - Processing table: salesorderdetail
+2024-04-24 15:23:14,362 - ERROR - Error loading salesorderdetail: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:14,377 - INFO - Processing table: product_sub_category
+2024-04-24 15:23:14,656 - ERROR - Error loading product_sub_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:14,670 - INFO - Processing table: salesterritory
+2024-04-24 15:23:14,936 - ERROR - Error loading salesterritory: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:14,945 - INFO - Processing table: salesorderheader
+2024-04-24 15:23:15,195 - ERROR - Error loading salesorderheader: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:15,204 - INFO - Processing table: currency
+2024-04-24 15:23:15,468 - ERROR - Error loading currency: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:15,473 - INFO - Processing table: store
+2024-04-24 15:23:15,724 - ERROR - Error loading store: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:15,726 - INFO - Processing table: product
+2024-04-24 15:23:15,962 - ERROR - Error loading product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:15,978 - INFO - Processing table: currencyrate
+2024-04-24 15:23:16,208 - ERROR - Error loading currencyrate: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:16,225 - INFO - Processing table: salesperson
+2024-04-24 15:23:16,475 - ERROR - Error loading salesperson: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:16,483 - INFO - Processing table: product_category
+2024-04-24 15:23:16,878 - ERROR - Error loading product_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:23:16,892 - INFO - Processing table: customer
+2024-04-24 15:23:17,139 - ERROR - Error loading customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:08,886 - INFO - Fetched database credentials
+2024-04-24 15:24:08,886 - INFO - Rows: [('adventure_db', 'dwh', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db'), ('adventure_db', 'stg', 'postgresql://postgres:welcome_1234@localhost:5432/adventure_db')]
+2024-04-24 15:24:08,886 - INFO - Processing database: adventure_db, schema: dwh
+2024-04-24 15:24:09,189 - INFO - Processing table: dim_customer
+2024-04-24 15:24:09,589 - ERROR - Error loading dim_customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:09,609 - INFO - Processing table: dummytable
+2024-04-24 15:24:09,857 - ERROR - Error loading dummytable: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:09,873 - INFO - Processing table: dim_product
+2024-04-24 15:24:10,156 - ERROR - Error loading dim_product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:10,164 - INFO - Processing table: sales_order_year_2013
+2024-04-24 15:24:10,418 - ERROR - Error loading sales_order_year_2013: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:10,434 - INFO - Processing table: fact_sales
+2024-04-24 15:24:10,681 - ERROR - Error loading fact_sales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:10,681 - INFO - Processing table: sales_order_year_2011
+2024-04-24 15:24:10,964 - ERROR - Error loading sales_order_year_2011: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:10,973 - INFO - Processing table: sales_order_year_2014
+2024-04-24 15:24:11,200 - ERROR - Error loading sales_order_year_2014: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:11,222 - INFO - Processing table: sales_order_year_2012
+2024-04-24 15:24:11,459 - ERROR - Error loading sales_order_year_2012: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:11,459 - INFO - Processing database: adventure_db, schema: stg
+2024-04-24 15:24:11,687 - INFO - Processing table: targetsales
+2024-04-24 15:24:11,949 - ERROR - Error loading targetsales: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:11,962 - INFO - Processing table: salesorderdetail
+2024-04-24 15:24:12,224 - ERROR - Error loading salesorderdetail: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:12,240 - INFO - Processing table: product_sub_category
+2024-04-24 15:24:12,479 - ERROR - Error loading product_sub_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:12,495 - INFO - Processing table: salesterritory
+2024-04-24 15:24:12,759 - ERROR - Error loading salesterritory: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:12,770 - INFO - Processing table: salesorderheader
+2024-04-24 15:24:13,014 - ERROR - Error loading salesorderheader: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:13,023 - INFO - Processing table: currency
+2024-04-24 15:24:13,277 - ERROR - Error loading currency: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:13,285 - INFO - Processing table: store
+2024-04-24 15:24:13,582 - ERROR - Error loading store: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:13,594 - INFO - Processing table: product
+2024-04-24 15:24:13,846 - ERROR - Error loading product: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:13,861 - INFO - Processing table: currencyrate
+2024-04-24 15:24:14,121 - ERROR - Error loading currencyrate: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:14,129 - INFO - Processing table: salesperson
+2024-04-24 15:24:14,609 - ERROR - Error loading salesperson: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:14,625 - INFO - Processing table: product_category
+2024-04-24 15:24:14,870 - ERROR - Error loading product_category: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+
+2024-04-24 15:24:14,886 - INFO - Processing table: customer
+2024-04-24 15:24:15,150 - ERROR - Error loading customer: Pipeline execution failed at stage load when processing package 1713952300.788926 with exception:
+
+<class 'dlt.destinations.exceptions.DatabaseUndefinedRelation'>
+relation "test_load_table.adventure_db_dwh_dummytable" does not exist
+

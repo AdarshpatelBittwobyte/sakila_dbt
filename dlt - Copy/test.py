@@ -5,10 +5,10 @@ from sqlalchemy import create_engine, text
 from sql_database import sql_database  # Assuming this is a custom module to establish database connection
 import subprocess
 
-def load_database_table(credential, db_name, incremental_by, engine):
+def load_database_table(credential, db_name, incremental_col, engine):
     source = sql_database(credentials=credential, schema='stg')
     for table_name in source.resources.keys():
-        incremental_source = incremental(incremental_by, initial_value=pendulum.datetime(1999, 1, 1, 0, 0, 0))
+        incremental_source = incremental(incremental_col, initial_value=pendulum.datetime(1999, 1, 1, 0, 0, 0))
         source.resources[table_name].apply_hints(incremental=incremental_source)
         pipeline = dlt.pipeline(
             pipeline_name=db_name, destination="postgres", dataset_name="Src_load_inc"#, progress="log"
@@ -38,20 +38,20 @@ def load_database_table(credential, db_name, incremental_by, engine):
             row_counts = row_counts[table_name1]  # replace 'table_name' with the actual key
             print(row_counts)
 
-        engine1 = create_engine("postgresql://postgres:welcome_1234@localhost:5432/adventure_db")
+        engine1 = create_engine("postgresql://postgres:welcome_1234@localhost:5432/sakila_wh")
         with engine1.connect() as conn:
             # Check if the table name exists
-            query = text(f"SELECT COUNT(*) FROM dwh.Src_load_inc WHERE table_name = '{table_name}_{db_name}'")
+            query = text(f"SELECT COUNT(*) FROM dwh.multisource_log WHERE table_name = '{table_name}_{db_name}'")
             result = conn.execute(query)
             count = result.scalar()
             print(count)
 
             # If the table name exists, update the row count
             if count > 0:
-                query = text(f"UPDATE dwh.Src_load_inc SET row_processed = {row_counts} WHERE table_name = '{table_name}_{db_name}'")
+                query = text(f"UPDATE dwh.multisource_log SET row_processed = {row_counts} WHERE table_name = '{table_name}_{db_name}'")
             # If the table name does not exist, insert a new row
             else:
-                query = text(f"INSERT INTO dwh.Src_load_inc (table_name, row_processed) VALUES ('{table_name}_{db_name}', {row_counts})")
+                query = text(f"INSERT INTO dwh.multisource_log (table_name, row_processed) VALUES ('{table_name}_{db_name}', {row_counts})")
             print(query)
             conn.execute(query)
             conn.commit()
@@ -59,11 +59,11 @@ def load_database_table(credential, db_name, incremental_by, engine):
 if __name__ == "__main__":     
     engine = create_engine("postgresql://postgres:welcome_1234@localhost:5432/sakila_wh")
     with engine.connect() as conn:
-        query = text("select db_name, db_schema, credential, incremental_by from prod.sou_cred")
+        query = text("select db_name, db_schema, credential, incremental_col from prod.sou_cred")
         result = conn.execute(query)
         rows = result.fetchall()
         print(rows)
     for row in rows:
-        db_name, db_schema, credential, incremental_by = row
+        db_name, db_schema, credential, incremental_col = row
         print(row)
-        load_database_table(credential, db_name, incremental_by, engine)
+        load_database_table(credential, db_name, incremental_col, engine)
