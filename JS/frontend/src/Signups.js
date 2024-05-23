@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import validation from './SignupValidation';
+import { Link, useNavigate } from 'react-router-dom';
+import Validation from './SignupValidation';
+import axios from 'axios';
 
 function Signups() {
   const [values, setValues] = useState({
@@ -19,15 +20,20 @@ function Signups() {
     }));
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const validationErrors = validation(values);
+    const validationErrors = Validation(values);
     setErrors(validationErrors);
 
     // Additional logic if no errors
     if (Object.keys(validationErrors).length === 0) {
-      // Submit form or perform further actions here
-      console.log('Form is valid');
+      axios.post('http://localhost:8081/signups', values)
+        .then(res => {
+          navigate('/');
+        })
+        .catch(err => console.log(err));
     }
   };
 

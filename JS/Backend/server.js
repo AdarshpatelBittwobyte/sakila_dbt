@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
-const bcrypt = require('bcryptjs'); // Changed to bcryptjs
 
 const app = express();
 app.use(cors());
@@ -17,25 +16,20 @@ const pool = new Pool({
 });
 
 // User registration route
-app.post('/Signups', async (req, res) => {
+app.post('/signups', (req, res) => {
   const { name, email, password } = req.body;
 
-  // Hash the password
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const sql = "INSERT INTO login (name, email, password) VALUES ($1, $2, $3)";
+  const values = [name, email, password];
 
-  const sql = 'INSERT INTO login(name, email, password) VALUES($1, $2, $3) RETURNING *';
-  const values = [name, email, hashedPassword];
-
-  try {
-    const result = await pool.query(sql, values);
-    res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error('Error inserting user:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
+  pool.query(sql, values, (err, data) => {
+    if (err) {
+      return res.status(500).json({ error: err.message });
+    }
+    return res.status(200).json({ message: "User registered successfully" });
+  });
 });
-const port = process.env.PORT || 8081;
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+app.listen(8081, () => {
+  console.log(`Server is listening on port 8081`);
 });

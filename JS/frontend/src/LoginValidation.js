@@ -1,27 +1,26 @@
-function validation(values){
-    let error = {}
-const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-const password_pattern = /^(?=.*\d) (?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/
-
-if(values.email === "") {
-error.email = "Name should not be empty"
-}
-else if(!email_pattern.test(values.email)) {
-error.email = "Email Didn't match"
-}
-else {
-error.email = ""
-}
-
-if (values.password === "") {
-error.password = "Password should not be empty"
-}
-
-else if(!password_pattern.test(values.password)) {
-error.password = "Password didn't match"
-} else {
-error.password = ""
-}
-return error;
-}
-export default validation;
+function validation(values) {
+    let errors = {};
+    const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
+  
+    if (values.email === "") {
+      errors.email = "Email should not be empty";
+    } else if (!email_pattern.test(values.email)) {
+      errors.email = "Invalid email format";
+    } else {
+      errors.email = "";
+    }
+  
+    if (values.password === "") {
+      errors.password = "Password should not be empty";
+    } else if (!password_pattern.test(values.password)) {
+      errors.password = "Password should contain at least 8 characters including uppercase, lowercase, and a digit";
+    } else {
+      errors.password = "";
+    }
+  
+    return errors;
+  }
+  
+  export default validation;
+  
