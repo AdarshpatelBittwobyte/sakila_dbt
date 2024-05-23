@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import Validation from './LoginValidation';
 
 function Logins() {
@@ -9,6 +10,7 @@ function Logins() {
   });
 
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleInput = (event) => {
     const { name, value } = event.target;
@@ -18,15 +20,26 @@ function Logins() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const validationErrors = Validation(values);
     setErrors(validationErrors);
 
-    // Additional logic if no errors
     if (Object.keys(validationErrors).length === 0) {
-      // Submit form or perform further actions here
-      console.log('Form is valid');
+      try {
+        const response = await axios.post('http://localhost:8081/login', values);
+        console.log(response);
+        if (response.status === 200) {
+          // Authentication successful, redirect to home page
+          navigate('/home');
+        } else {
+          // Authentication failed, handle error
+          console.log('Authentication failed:', response.data.message);
+        }
+      } catch (error) {
+        // Handle network errors or other errors
+        console.error('Error:', error.message);
+      }
     }
   };
 

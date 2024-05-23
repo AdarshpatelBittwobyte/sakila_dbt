@@ -29,7 +29,7 @@ function Signups() {
 
     // Additional logic if no errors
     if (Object.keys(validationErrors).length === 0) {
-      axios.post('http://localhost:8081/signups', values)
+      axios.post('http://localhost:8081/signup', values)
         .then(res => {
           navigate('/');
         })

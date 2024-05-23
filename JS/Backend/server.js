@@ -24,9 +24,33 @@ app.post('/signups', (req, res) => {
 
   pool.query(sql, values, (err, data) => {
     if (err) {
+      console.error('Error inserting user:', err.message);
       return res.status(500).json({ error: err.message });
     }
     return res.status(200).json({ message: "User registered successfully" });
+  });
+});
+
+// Login authentication route
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+
+  const sql = "SELECT * FROM login WHERE email = $1 AND password = $2";
+  const values = [email, password];
+
+  pool.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error querying user:', err.message);
+      return res.status(500).json({ error: err.message });
+    }
+
+    if (result.rows.length === 0) {
+      console.log('Invalid email or password');
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    console.log('User authenticated successfully');
+    return res.status(200).json({ message: "Login successful" });
   });
 });
 

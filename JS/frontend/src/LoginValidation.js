@@ -1,22 +1,19 @@
+// LoginValidation.js
 function validation(values) {
     let errors = {};
-    const email_pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const password_pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   
-    if (values.email === "") {
+    if (!values.email) {
       errors.email = "Email should not be empty";
-    } else if (!email_pattern.test(values.email)) {
-      errors.email = "Invalid email format";
-    } else {
-      errors.email = "";
+    } else if (!emailPattern.test(values.email)) {
+      errors.email = "Email didn't match";
     }
   
-    if (values.password === "") {
+    if (!values.password) {
       errors.password = "Password should not be empty";
-    } else if (!password_pattern.test(values.password)) {
-      errors.password = "Password should contain at least 8 characters including uppercase, lowercase, and a digit";
-    } else {
-      errors.password = "";
+    } else if (!passwordPattern.test(values.password)) {
+      errors.password = "Password didn't match";
     }
   
     return errors;
