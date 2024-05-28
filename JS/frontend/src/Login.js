@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Validation from './LoginValidation';
 
-function Logins() {
+function Login() {
   const [values, setValues] = useState({
     email: '',
     password: ''
@@ -30,10 +30,11 @@ function Logins() {
         const response = await axios.post('http://localhost:8081/login', values);
         console.log(response);
         if (response.status === 200) {
-          // Authentication successful, redirect to home page
-          navigate('/home');
+          // Authentication successful, redirect to home page with email query parameter
+          const userEmail = response.data.user.email;
+          navigate(`/home?email=${userEmail}`);
         } else {
-          // Authentication failed, handle error
+          // Authentication failed, handle errortart
           console.log('Authentication failed:', response.data.message);
         }
       } catch (error) {
@@ -75,7 +76,7 @@ function Logins() {
             />
             {errors.password && <span className='text-danger'>{errors.password}</span>}
           </div>
-          <button type='submit' className='btn btn-success w-100'>
+          <button type='submit' className='btn btn-primary w-100'>
             <strong>Login</strong>
           </button>
           <Link to='/signups' className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'>
@@ -87,4 +88,4 @@ function Logins() {
   );
 }
 
-export default Logins;
+export default Login;
