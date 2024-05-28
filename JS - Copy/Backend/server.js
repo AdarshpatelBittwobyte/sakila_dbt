@@ -1,25 +1,16 @@
 const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql');
+const cors = require('cors'); // Import cors
+const db = require('./db'); // Import the db.js file
 
 const app = express();
-app.use(cors());
-app.use(express.json());
 
-// MySQL connection setup
-const pool = mysql.createPool({
-  connectionLimit: 10,
-  host: 'b2b-s360.chpxcjdw4aj9.ap-south-1.rds.amazonaws.com',
-  user: 'B2B_Admin',
-  password: 'b2b@123',
-  database: 'B2B_S360_EUROKID',
-  port: 3306, // Default MySQL port
-});
+app.use(cors()); // Enable CORS
 
 // Route to fetch all students
 app.get('/api/students', (req, res) => {
-  // Get all students from the database
-  pool.query('SELECT * FROM B2B_STUDENT', (error, results) => {
+  const query = 'SELECT * FROM B2B_STUDENT';
+
+  db.executeQuery(query, [], (error, results) => {
     if (error) {
       console.error('Error fetching students:', error);
       res.status(500).json({ error: 'Error fetching students' });
@@ -29,18 +20,15 @@ app.get('/api/students', (req, res) => {
   });
 });
 
-
 // Route to fetch student attendance data joined with student details
 app.get('/api/studentAttendance', (req, res) => {
-  // Perform a JOIN operation between B2B_ATTENDANCE and B2B_STUDENT tables based on Student_Id
   const query = `
     SELECT B2B_ATTENDANCE.*, B2B_STUDENT.First_Name, B2B_STUDENT.Middle_Name
     FROM B2B_ATTENDANCE
     JOIN B2B_STUDENT ON B2B_ATTENDANCE.Student_Id = B2B_STUDENT.Student_Id
   `;
 
-  // Execute the SQL query
-  pool.query(query, (error, results) => {
+  db.executeQuery(query, [], (error, results) => {
     if (error) {
       console.error('Error fetching student attendance:', error);
       res.status(500).json({ error: 'Error fetching student attendance' });
