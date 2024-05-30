@@ -38,8 +38,8 @@ function Home() {
       <h1>Student List</h1>
       <ul>
         {students.map(student => (
-          <li key={student.Student_Id}>
-            Student ID: {student.Student_Id} First Name: {student.First_Name} Middle Name: {student.Middle_Name}
+          <li key={student.Parent_ID}>
+            Parent ID: {student.Parent_ID} First Name: {student.First_Name} Middle Name: {student.Middle_Name}
           </li>
         ))}
       </ul>

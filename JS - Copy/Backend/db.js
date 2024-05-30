@@ -1,17 +1,26 @@
+
 const mysql = require('mysql');
 require('dotenv').config();
 
-// Create a MySQL connection pool
-const pool = mysql.createPool({
+// Create MySQL connection pools for each database
+const pool1 = mysql.createPool({
   connectionLimit: 10,
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_NAME
+  host: process.env.DB1_HOST,
+  user: process.env.DB1_USER,
+  password: process.env.DB1_PASS,
+  database: process.env.DB1_NAME
 });
 
-// Function to execute a query
-function executeQuery(query, params, callback) {
+const pool2 = mysql.createPool({
+  connectionLimit: 10,
+  host: process.env.DB2_HOST,
+  user: process.env.DB2_USER,
+  password: process.env.DB2_PASS,
+  database: process.env.DB2_NAME
+});
+
+// Function to execute a query on a specified pool
+function executeQuery(pool, query, params, callback) {
   pool.getConnection((err, connection) => {
     if (err) {
       console.error('Error getting MySQL connection:', err);
@@ -33,5 +42,7 @@ function executeQuery(query, params, callback) {
 }
 
 module.exports = {
-  executeQuery
+  executeQuery,
+  pool1,
+  pool2
 };
