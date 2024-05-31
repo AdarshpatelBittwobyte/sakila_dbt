@@ -1,48 +1,71 @@
 
+// db.js
+
 const mysql = require('mysql');
-require('dotenv').config();
+const dotenv = require('dotenv');
+dotenv.config();
 
-// Create MySQL connection pools for each database
-const pool1 = mysql.createPool({
+// MySQL Connection Pool
+const pool = mysql.createPool({
   connectionLimit: 10,
-  host: process.env.DB1_HOST,
-  user: process.env.DB1_USER,
-  password: process.env.DB1_PASS,
-  database: process.env.DB1_NAME
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
+// server.js
 
-const pool2 = mysql.createPool({
-  connectionLimit: 10,
-  host: process.env.DB2_HOST,
-  user: process.env.DB2_USER,
-  password: process.env.DB2_PASS,
-  database: process.env.DB2_NAME
-});
-
-// Function to execute a query on a specified pool
-function executeQuery(pool, query, params, callback) {
-  pool.getConnection((err, connection) => {
-    if (err) {
-      console.error('Error getting MySQL connection:', err);
-      callback(err, null);
+function authenticateMasterUser(username, password, callback) {
+  pool.query('SELECT * FROM MASTER_LOGIN WHERE username = ?', [username], (error, results) => {
+    if (error) {
+      console.error('Error executing query:', error);
+      callback(error, null);
       return;
     }
 
-    connection.query(query, params, (err, results) => {
-      connection.release();
-      if (err) {
-        console.error('Error executing MySQL query:', err);
-        callback(err, null);
+    if (results.length === 0) {
+      console.log(`Username "${username}" not found`);
+      callback(null, false, 'Invalid username');
+      return;
+    }
+
+    const user = results[0];
+    console.log(`Found user with username "${username}". Password in database: "${user.userpassword}", Password provided: "${password}"`);
+    
+    if (user.userpassword !== password) {
+      console.log(`Password for user "${username}" does not match`);
+      callback(null, false, 'Incorrect password');
+      return;
+    }
+
+    // Authentication successful
+    const masterUserId = user.Master_Id;
+    pool.query('SELECT * FROM SchoolCredentials WHERE Master_Id = ?', [masterUserId], (error, results) => {
+      if (error) {
+        console.error('Error executing query:', error);
+        callback(error, null);
         return;
       }
 
-      callback(null, results);
+      if (results.length === 0) {
+        callback(null, false, 'School credentials not found');
+        return;
+      }
+
+      const schoolCredentials = results[0];
+      const schoolDbConfig = {
+        host: schoolCredentials.database_host,
+        user: schoolCredentials.database_user,
+        password: schoolCredentials.database_password,
+        database: schoolCredentials.database_name
+      };
+
+      callback(null, true, schoolDbConfig);
     });
   });
 }
 
 module.exports = {
-  executeQuery,
-  pool1,
-  pool2
+  authenticateMasterUser
 };
+

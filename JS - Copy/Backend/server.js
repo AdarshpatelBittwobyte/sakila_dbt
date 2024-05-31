@@ -1,78 +1,57 @@
+// server.js
 
 const express = require('express');
-const cors = require('cors'); // Import cors
-const db = require('./db'); // Import the db.js file
+const bodyParser = require('body-parser');
+const db = require('./db');
 
 const app = express();
+const PORT = process.env.PORT || 8081;
 
-app.use(cors()); // Enable CORS
+app.use(bodyParser.json());
 
-// Route to fetch all students from database 1
-app.get('/api/students', (req, res) => {
-  const query = 'SELECT * FROM B2B_Parents';
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
 
-  db.executeQuery(db.pool2, query, [], (error, results) => {
+  db.authenticateMasterUser(username, password, (error, authenticated, schoolDbConfig) => {
     if (error) {
-      console.error('Error fetching students:', error);
-      res.status(500).json({ error: 'Error fetching students' });
-    } else {
-      res.json(results); // Send the list of students as JSON response
+      console.error('Error:', error);
+      res.status(500).send('Internal Server Error');
+      return;
     }
+
+    if (!authenticated) {
+      res.status(401).send('Invalid username or password');
+      return;
+    }
+
+    // Connect to school's database using schoolDbConfig
+    const schoolDbConnection = mysql.createConnection(schoolDbConfig);
+
+    schoolDbConnection.connect((error) => {
+      if (error) {
+        console.error('Error connecting to school database:', error);
+        res.status(500).send('Failed to connect to school database');
+        return;
+      }
+
+      console.log('Connected to school database:', schoolDbConfig.database);
+      // You can perform further actions after connecting to the school's database
+
+      // Respond with success
+      res.status(200).send('Login successful and connected to school database');
+    });
   });
 });
 
-// Route to fetch student attendance data joined with student details from database 1
-app.get('/api/studentAttendance', (req, res) => {
-  const query = `
-    SELECT B2B_ATTENDANCE.*, B2B_STUDENT.First_Name, B2B_STUDENT.Middle_Name
-    FROM B2B_ATTENDANCE
-    JOIN B2B_STUDENT ON B2B_ATTENDANCE.Student_Id = B2B_STUDENT.Student_Id
-  `;
-
-  db.executeQuery(db.pool1, query, [], (error, results) => {
-    if (error) {
-      console.error('Error fetching student attendance:', error);
-      res.status(500).json({ error: 'Error fetching student attendance' });
-    } else {
-      res.json(results); // Send the joined data as JSON response
-    }
-  });
-});
-
-// Route to fetch all students from database 2
-app.get('/api/students-db2', (req, res) => {
-  const query = 'SELECT * FROM B2B_STUDENT';
-
-  db.executeQuery(db.pool2, query, [], (error, results) => {
-    if (error) {
-      console.error('Error fetching students:', error);
-      res.status(500).json({ error: 'Error fetching students' });
-    } else {
-      res.json(results); // Send the list of students as JSON response
-    }
-  });
-});
-
-// Route to fetch student attendance data joined with student details from database 2
-app.get('/api/studentAttendance-db2', (req, res) => {
-  const query = `
-    SELECT B2B_ATTENDANCE.*, B2B_STUDENT.First_Name, B2B_STUDENT.Middle_Name
-    FROM B2B_ATTENDANCE
-    JOIN B2B_STUDENT ON B2B_ATTENDANCE.Student_Id = B2B_STUDENT.Student_Id
-  `;
-
-  db.executeQuery(db.pool2, query, [], (error, results) => {
-    if (error) {
-      console.error('Error fetching student attendance:', error);
-      res.status(500).json({ error: 'Error fetching student attendance' });
-    } else {
-      res.json(results); // Send the joined data as JSON response
-    }
-  });
-});
-
-// Start the server
-const PORT = process.env.PORT || 8002;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+
+
+
+
+
+
