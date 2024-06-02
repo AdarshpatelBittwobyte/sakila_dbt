@@ -1,22 +1,22 @@
 const express = require('express');
 const cors = require('cors');
-const { Pool } = require('pg');
-
-const bcrypt = require('bcrypt'); // Add this line to import bcrypt
-
+const bcrypt = require('bcrypt');
+require('dotenv').config();
+const createPool = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// PostgreSQL pool setup
-const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'student_management',
-  password: 'welcome_1234',
-  port: 5432,
-});
+// PostgreSQL pool setup using environment variables
+const pool = createPool();
+
+// Helper function to check if email exists
+const emailExists = async (email) => {
+  const emailCheckSql = "SELECT * FROM login WHERE email = $1";
+  const emailCheckResult = await pool.query(emailCheckSql, [email]);
+  return emailCheckResult.rows.length > 0;
+};
 
 // User registration route
 app.post('/signups', async (req, res) => {
@@ -27,10 +27,7 @@ app.post('/signups', async (req, res) => {
   }
 
   try {
-    const emailCheckSql = "SELECT * FROM login WHERE email = $1";
-    const emailCheckResult = await pool.query(emailCheckSql, [email]);
-
-    if (emailCheckResult.rows.length > 0) {
+    if (await emailExists(email)) {
       return res.status(409).json({ error: 'Email already exists' });
     }
 
@@ -45,8 +42,6 @@ app.post('/signups', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-
 
 // Login authentication route
 app.post('/login', async (req, res) => {
@@ -65,7 +60,7 @@ app.post('/login', async (req, res) => {
     }
 
     const user = result.rows[0];
-    const isPasswordValid = await bcrypt.compare(password, user.password); // Compare hashed password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid password" });
@@ -79,62 +74,56 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
-
 // Get user data by email route
-app.get('/userByEmail/:email', (req, res) => {
+app.get('/userByEmail/:email', async (req, res) => {
   const { email } = req.params;
 
-  const sql = "SELECT * FROM login WHERE email = $1";
-  const values = [email];
-
-  pool.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error querying user:', err.message);
-      return res.status(500).json({ error: err.message });
-    }
+  try {
+    const sql = "SELECT * FROM login WHERE email = $1";
+    const result = await pool.query(sql, [email]);
 
     if (result.rows.length === 0) {
       return res.status(404).json({ message: "User not found" });
     }
 
     return res.status(200).json({ user: result.rows[0] });
-  });
+  } catch (err) {
+    console.error('Error querying user:', err.message);
+    return res.status(500).json({ error: err.message });
+  }
 });
 
 // Update user data by email route
-app.put('/userByEmail/:email', (req, res) => {
+app.put('/userByEmail/:email', async (req, res) => {
   const { email } = req.params;
   const { name } = req.body;
 
-  const sql = "UPDATE login SET name = $1 WHERE email = $2";
-  const values = [name, email];
+  try {
+    const sql = "UPDATE login SET name = $1 WHERE email = $2";
+    const values = [name, email];
 
-  pool.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error updating user:', err.message);
-      return res.status(500).json({ error: err.message });
-    }
-
+    await pool.query(sql, values);
     return res.status(200).json({ message: "User updated successfully" });
-  });
+  } catch (err) {
+    console.error('Error updating user:', err.message);
+    return res.status(500).json({ error: err.message });
+  }
 });
 
 // Delete user data by email route
-app.delete('/userByEmail/:email', (req, res) => {
+app.delete('/userByEmail/:email', async (req, res) => {
   const { email } = req.params;
 
-  const sql = "DELETE FROM login WHERE email = $1";
-  const values = [email];
+  try {
+    const sql = "DELETE FROM login WHERE email = $1";
+    const values = [email];
 
-  pool.query(sql, values, (err, result) => {
-    if (err) {
-      console.error('Error deleting user:', err.message);
-      return res.status(500).json({ error: err.message });
-    }
-
+    await pool.query(sql, values);
     return res.status(200).json({ message: "User deleted successfully" });
-  });
+  } catch (err) {
+    console.error('Error deleting user:', err.message);
+    return res.status(500).json({ error: err.message });
+  }
 });
 
 app.listen(8081, () => {
