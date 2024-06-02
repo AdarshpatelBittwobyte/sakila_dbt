@@ -13,7 +13,7 @@ const pool = createPool();
 
 // Helper function to check if email exists
 const emailExists = async (email) => {
-  const emailCheckSql = "SELECT * FROM login WHERE email = $1";
+  const emailCheckSql = "SELECT * FROM logins WHERE email = $1";
   const emailCheckResult = await pool.query(emailCheckSql, [email]);
   return emailCheckResult.rows.length > 0;
 };
@@ -32,7 +32,7 @@ app.post('/signups', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO login (email, password, name) VALUES ($1, $2, $3)";
+    const sql = "INSERT INTO logins (email, password, name) VALUES ($1, $2, $3)";
     const values = [email, hashedPassword, name];
 
     await pool.query(sql, values);
@@ -52,7 +52,7 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    const sql = "SELECT * FROM login WHERE email = $1";
+    const sql = "SELECT * FROM logins WHERE email = $1";
     const result = await pool.query(sql, [email]);
 
     if (result.rows.length === 0) {
@@ -79,7 +79,7 @@ app.get('/userByEmail/:email', async (req, res) => {
   const { email } = req.params;
 
   try {
-    const sql = "SELECT * FROM login WHERE email = $1";
+    const sql = "SELECT * FROM logins WHERE email = $1";
     const result = await pool.query(sql, [email]);
 
     if (result.rows.length === 0) {
@@ -99,7 +99,7 @@ app.put('/userByEmail/:email', async (req, res) => {
   const { name } = req.body;
 
   try {
-    const sql = "UPDATE login SET name = $1 WHERE email = $2";
+    const sql = "UPDATE logins SET name = $1 WHERE email = $2";
     const values = [name, email];
 
     await pool.query(sql, values);
@@ -115,7 +115,7 @@ app.delete('/userByEmail/:email', async (req, res) => {
   const { email } = req.params;
 
   try {
-    const sql = "DELETE FROM login WHERE email = $1";
+    const sql = "DELETE FROM logins WHERE email = $1";
     const values = [email];
 
     await pool.query(sql, values);
