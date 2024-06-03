@@ -31,8 +31,8 @@ function Login() {
         console.log(response);
         if (response.status === 200) {
           // Authentication successful, redirect to home page with email query parameter
-          const userEmail = response.data.user.email;
-          navigate(`/home?email=${userEmail}`);
+          // const userEmail = response.data.user.email;
+          navigate(`/home`);
         } else {
           // Authentication failed, handle errortart
           console.log('Authentication failed:', response.data.message);
