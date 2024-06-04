@@ -2,37 +2,22 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-const createPool = require('./db');
+const { createPool, connectToSchoolDatabase} = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// PostgreSQL pool setup using environment variables
+// PostgreSQL pool setup using environment variables for the main database
 const pool = createPool();
+let schoolDbConnection; // Define a global variable to store the school database connection
 
 // Helper function to check if email exists
 const emailExists = async (email) => {
-  const emailCheckSql = "SELECT * FROM login WHERE email = $1";
+  const emailCheckSql = "SELECT 1 FROM logins WHERE email = $1";
   const emailCheckResult = await pool.query(emailCheckSql, [email]);
   return emailCheckResult.rows.length > 0;
 };
-
-
-
-
-app.get('/api/students', async (req, res) => {
-const query = 'SELECT * FROM login';
-
-try {
-  const result = await pool.query(query);
-  res.json(result.rows);
-} catch (error) {
-  console.error('Error fetching students:', error.message, error.stack);
-  res.status(500).json({ error: 'Error fetching students' });
-}
-});
-
 
 
 // User registration route
@@ -49,7 +34,7 @@ app.post('/signups', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO login (email, password, name) VALUES ($1, $2, $3)";
+    const sql = "INSERT INTO logins (email, password, name) VALUES ($1, $2, $3)";
     const values = [email, hashedPassword, name];
 
     await pool.query(sql, values);
@@ -59,8 +44,8 @@ app.post('/signups', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
-
-// Login authentication route
+ 
+ // Login authentication route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -69,7 +54,7 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    const sql = "SELECT * FROM login WHERE email = $1";
+    const sql = "SELECT * FROM logins WHERE email = $1";
     const result = await pool.query(sql, [email]);
 
     if (result.rows.length === 0) {
@@ -84,64 +69,60 @@ app.post('/login', async (req, res) => {
     }
 
     console.log('User authenticated successfully');
-    return res.status(200).json({ message: "Login successful", user });
-  } catch (err) {
-    console.error('Error querying user:', err.message);
-    return res.status(500).json({ error: err.message });
-  }
-});
 
-// Get user data by email route
-app.get('/userByEmail/:email', async (req, res) => {
-  const { email } = req.params;
+    // Check if user's email exists in schoolcredentials
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = $1";
+    const schoolResult = await pool.query(schoolSql, [email]);
 
-  try {
-    const sql = "SELECT * FROM login WHERE email = $1";
-    const result = await pool.query(sql, [email]);
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ message: "User not found" });
+    if (schoolResult.rows.length === 0) {
+      return res.status(404).json({ error: "Student database not found" });
     }
 
-    return res.status(200).json({ user: result.rows[0] });
+    const schoolCredentials = schoolResult.rows[0];
+
+    // Securely connect to the school database and store the connection globally
+    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+
+    console.log('Connected to the school database successfully');
+
+    // Return the user, along with the school database details, excluding sensitive information
+    return res.status(200).json({
+      message: "Login successful",
+      user: { email: user.email, name: user.name },
+      schoolDb: { host: schoolCredentials.database_host, database: schoolCredentials.database_name }
+    });
+
   } catch (err) {
-    console.error('Error querying user:', err.message);
-    return res.status(500).json({ error: err.message });
+    console.error('Error during login process:', err.message);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Update user data by email route
-app.put('/userByEmail/:email', async (req, res) => {
-  const { email } = req.params;
-  const { name } = req.body;
-
+// Route to fetch students
+app.get('/students', async (req, res) => {
   try {
-    const sql = "UPDATE login SET name = $1 WHERE email = $2";
-    const values = [name, email];
+    console.log("GET /students: Fetching students...");
+    if (!schoolDbConnection) {
+      console.log("GET /students: School database connection not established.");
+      return res.status(500).json({ error: "School database connection not established" });
+    }
 
-    await pool.query(sql, values);
-    return res.status(200).json({ message: "User updated successfully" });
+    // Fetch all students from the students table
+    const studentsSql = "SELECT * FROM stg.actor"; // Adjust this query as per your schema
+    console.log("GET /students: Executing SQL query:", studentsSql);
+    
+    const studentsResult = await schoolDbConnection.query(studentsSql);
+
+    console.log("GET /students: Students fetched successfully.");
+    return res.status(200).json(studentsResult.rows);
+
   } catch (err) {
-    console.error('Error updating user:', err.message);
-    return res.status(500).json({ error: err.message });
+    console.error('Error fetching students:', err.message);
+    return res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-// Delete user data by email route
-app.delete('/userByEmail/:email', async (req, res) => {
-  const { email } = req.params;
-
-  try {
-    const sql = "DELETE FROM login WHERE email = $1";
-    const values = [email];
-
-    await pool.query(sql, values);
-    return res.status(200).json({ message: "User deleted successfully" });
-  } catch (err) {
-    console.error('Error deleting user:', err.message);
-    return res.status(500).json({ error: err.message });
-  }
-});
+ 
 
 app.listen(8081, () => {
   console.log(`Server is listening on port 8081`);

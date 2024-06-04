@@ -25,17 +25,17 @@ const Home = () => {
       <table>
         <thead>
           <tr>
-            <th>actor_id</th>
-            <th>first_name</th>
-            <th>last_name</th>
+            <th>Parent_ID</th>
+            <th>First_Name</th>
+            <th>Middle_Name</th>
           </tr>
         </thead>
         <tbody>
           {students.map((student) => (
-            <tr key={student.actor_id}>
-              <td>{student.actor_id}</td>
-              <td>{student.first_name}</td>
-              <td>{student.last_name}</td>
+            <tr key={student.Parent_ID}>
+              <td>{student.Parent_ID}</td>
+              <td>{student.First_Name}</td>
+              <td>{student.Middle_Name}</td>
             </tr>
           ))}
         </tbody>

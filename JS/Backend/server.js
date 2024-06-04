@@ -1,24 +1,24 @@
+
 const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-const { createPool, connectToSchoolDatabase} = require('./db');
+const { createPool, connectToSchoolDatabase } = require('./db');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// PostgreSQL pool setup using environment variables for the main database
+// MySQL pool setup using environment variables for the main database
 const pool = createPool();
 let schoolDbConnection; // Define a global variable to store the school database connection
 
 // Helper function to check if email exists
 const emailExists = async (email) => {
-  const emailCheckSql = "SELECT 1 FROM logins WHERE email = $1";
-  const emailCheckResult = await pool.query(emailCheckSql, [email]);
-  return emailCheckResult.rows.length > 0;
+  const emailCheckSql = "SELECT 1 FROM logins WHERE email = ?";
+  const [emailCheckResult] = await pool.query(emailCheckSql, [email]);
+  return emailCheckResult.length > 0;
 };
-
 
 // User registration route
 app.post('/signups', async (req, res) => {
@@ -34,7 +34,7 @@ app.post('/signups', async (req, res) => {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const sql = "INSERT INTO logins (email, password, name) VALUES ($1, $2, $3)";
+    const sql = "INSERT INTO logins (email, password, name) VALUES (?, ?, ?)";
     const values = [email, hashedPassword, name];
 
     await pool.query(sql, values);
@@ -44,8 +44,8 @@ app.post('/signups', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
- 
- // Login authentication route
+
+// Login authentication route
 app.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -54,14 +54,14 @@ app.post('/login', async (req, res) => {
   }
 
   try {
-    const sql = "SELECT * FROM logins WHERE email = $1";
-    const result = await pool.query(sql, [email]);
+    const sql = "SELECT * FROM logins WHERE email = ?";
+    const [result] = await pool.query(sql, [email]);
 
-    if (result.rows.length === 0) {
+    if (result.length === 0) {
       return res.status(401).json({ error: "Email not registered" });
     }
 
-    const user = result.rows[0];
+    const user = result[0];
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
@@ -71,17 +71,17 @@ app.post('/login', async (req, res) => {
     console.log('User authenticated successfully');
 
     // Check if user's email exists in schoolcredentials
-    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = $1";
-    const schoolResult = await pool.query(schoolSql, [email]);
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
+    const [schoolResult] = await pool.query(schoolSql, [email]);
 
-    if (schoolResult.rows.length === 0) {
+    if (schoolResult.length === 0) {
       return res.status(404).json({ error: "Student database not found" });
     }
 
-    const schoolCredentials = schoolResult.rows[0];
+    const schoolcredentials = schoolResult[0];
 
     // Securely connect to the school database and store the connection globally
-    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+    schoolDbConnection = await connectToSchoolDatabase(schoolcredentials);
 
     console.log('Connected to the school database successfully');
 
@@ -89,7 +89,7 @@ app.post('/login', async (req, res) => {
     return res.status(200).json({
       message: "Login successful",
       user: { email: user.email, name: user.name },
-      schoolDb: { host: schoolCredentials.database_host, database: schoolCredentials.database_name }
+      schoolDb: { host: schoolcredentials.database_host, database: schoolcredentials.database_name }
     });
 
   } catch (err) {
@@ -108,21 +108,19 @@ app.get('/students', async (req, res) => {
     }
 
     // Fetch all students from the students table
-    const studentsSql = "SELECT * FROM stg.actor"; // Adjust this query as per your schema
+    const studentsSql = "SELECT * FROM B2B_Parents"; // Adjust this query as per your schema
     console.log("GET /students: Executing SQL query:", studentsSql);
-    
-    const studentsResult = await schoolDbConnection.query(studentsSql);
+
+    const [studentsResult] = await schoolDbConnection.query(studentsSql);
 
     console.log("GET /students: Students fetched successfully.");
-    return res.status(200).json(studentsResult.rows);
+    return res.status(200).json(studentsResult);
 
   } catch (err) {
     console.error('Error fetching students:', err.message);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });
-
- 
 
 app.listen(8081, () => {
   console.log(`Server is listening on port 8081`);
