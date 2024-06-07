@@ -43,61 +43,7 @@ app.post('/signups', async (req, res) => {
     console.error('Error registering user:', err.message);
     return res.status(500).json({ error: 'Internal server error' });
   }
-});
-
-// Login authentication route
-app.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Missing email or password' });
-  }
-
-  try {
-    const sql = "SELECT * FROM logins WHERE email = ?";
-    const [result] = await pool.query(sql, [email]);
-
-    if (result.length === 0) {
-      return res.status(401).json({ error: "Email not registered" });
-    }
-
-    const user = result[0];
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
-      return res.status(401).json({ error: "Invalid password" });
-    }
-
-    console.log('User authenticated successfully');
-
-    // Check if user's email exists in schoolcredentials
-    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
-    const [schoolResult] = await pool.query(schoolSql, [email]);
-
-    if (schoolResult.length === 0) {
-      return res.status(404).json({ error: "Student database not found" });
-    }
-
-    const schoolcredentials = schoolResult[0];
-
-    // Securely connect to the school database and store the connection globally
-    schoolDbConnection = await connectToSchoolDatabase(schoolcredentials);
-
-    console.log('Connected to the school database successfully');
-
-    // Return the user, along with the school database details, excluding sensitive information
-    return res.status(200).json({
-      message: "Login successful",
-      user: { email: user.email, name: user.name },
-      schoolDb: { host: schoolcredentials.database_host, database: schoolcredentials.database_name }
-    });
-
-  } catch (err) {
-    console.error('Error during login process:', err.message);
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
+}); 
 
  // Login authentication route
 app.post('/masterlogin', async (req, res) => {
