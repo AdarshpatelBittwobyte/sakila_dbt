@@ -6,7 +6,8 @@ import Validation from './LoginValidation';
 function Login() {
   const [values, setValues] = useState({
     email: '',
-    password: ''
+    password: '',
+    role: 'master' // Default role
   });
 
   const [errors, setErrors] = useState({});
@@ -27,14 +28,46 @@ function Login() {
 
     if (Object.keys(validationErrors).length === 0) {
       try {
-        const response = await axios.post('http://localhost:8081/login', values);
+        let loginApi;
+        switch (values.role) {
+          case 'master':
+            loginApi = 'masterlogin';
+            break;
+          case 'admin':
+            loginApi = 'adminlogin';
+            break;
+          case 'teacher':
+            loginApi = 'teacherlogin';
+            break;
+          case 'student':
+            loginApi = 'studentlogin';
+            break;
+          default:
+            loginApi = 'masterlogin'; // Default to master login if role is not recognized
+        }
+
+        const response = await axios.post(`http://localhost:8081/${loginApi}`, values);
         console.log(response);
         if (response.status === 200) {
-          // Authentication successful, redirect to home page with email query parameter
-          // const userEmail = response.data.user.email;
-          navigate(`/home`);
+          // Authentication successful, navigate to corresponding home page
+          switch (values.role) {
+            case 'master':
+              navigate(`/home1`);
+              break;
+            case 'admin':
+              navigate(`/home2`);
+              break;
+            case 'teacher':
+              navigate(`/home3`);
+              break;
+            case 'student':
+              navigate(`/home4`);
+              break;
+            default:
+              navigate(`/home1`); // Default to home1 if role is not recognized
+          }
         } else {
-          // Authentication failed, handle errortart
+          // Authentication failed, handle error
           console.log('Authentication failed:', response.data.message);
         }
       } catch (error) {
@@ -75,6 +108,22 @@ function Login() {
               value={values.password}
             />
             {errors.password && <span className='text-danger'>{errors.password}</span>}
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='role'>
+              <strong>Role</strong>
+            </label>
+            <select
+              name='role'
+              onChange={handleInput}
+              value={values.role}
+              className='form-control rounded-0'
+            >
+              <option value='master'>Master</option>
+              <option value='admin'>Admin</option>
+              <option value='teacher'>Teacher</option>
+              <option value='student'>Student</option>
+            </select>
           </div>
           <button type='submit' className='btn btn-primary w-100'>
             <strong>Login</strong>

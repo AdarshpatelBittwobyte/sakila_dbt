@@ -98,6 +98,243 @@ app.post('/login', async (req, res) => {
   }
 });
 
+
+ // Login authentication route
+app.post('/masterlogin', async (req, res) => {
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+    return res.status(400).json({ error: 'Missing email, password, or role' });
+  }
+
+  try {
+    const sql = "SELECT * FROM master_user WHERE email = ?";
+    const [result] = await pool.query(sql, [email]);
+
+    if (result.length === 0) {
+      return res.status(401).json({ error: "Email not registered" });
+    }
+
+    const user = result[0];
+    const isPasswordValid = user.password
+    //await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    console.log('User authenticated successfully');
+
+    // Check if user's email exists in schoolcredentials
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
+    const [schoolResult] = await pool.query(schoolSql, [email]);
+
+    if (schoolResult.length === 0) {
+      return res.status(404).json({ error: "Student database not found" });
+    }
+
+    const schoolCredentials = schoolResult[0];
+
+    // Securely connect to the school database and store the connection globally
+    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+
+    console.log('Connected to the school database successfully');
+
+    // Return the user, along with the school database details, excluding sensitive information
+    return res.status(200).json({
+      message: "Login successful",
+      user: { email: user.email, name: user.name, role },
+      schoolDb: {
+        host: schoolCredentials.database_host,
+        database: schoolCredentials.database_name,
+      },
+    });
+
+  } catch (err) {
+    console.error('Error during login process:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+ // Login authentication route
+ app.post('/adminlogin', async (req, res) => {
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+    return res.status(400).json({ error: 'Missing email, password, or role' });
+  }
+
+  try {
+    const sql = "SELECT * FROM admin_user WHERE user_email = ?";
+    const [result] = await pool.query(sql, [email]);
+
+    if (result.length === 0) {
+      return res.status(401).json({ error: "Email not registered" });
+    }
+
+    const user = result[0];
+    const isPasswordValid = user.password
+    //await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    console.log('User authenticated successfully');
+
+    // Check if user's email exists in schoolcredentials
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
+    const [schoolResult] = await pool.query(schoolSql, [user.email]);
+
+    if (schoolResult.length === 0) {
+      return res.status(404).json({ error: "Student database not found" });
+    }
+
+    const schoolCredentials = schoolResult[0];
+
+    // Securely connect to the school database and store the connection globally
+    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+
+    console.log('Connected to the school database successfully');
+
+    // Return the user, along with the school database details, excluding sensitive information
+    return res.status(200).json({
+      message: "Login successful",
+      user: { email: user.user_email, name: user.name, role },
+      schoolDb: {
+        host: schoolCredentials.database_host,
+        database: schoolCredentials.database_name,
+      },
+    });
+
+  } catch (err) {
+    console.error('Error during login process:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+
+ // Login authentication route
+ app.post('/teacherlogin', async (req, res) => {
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+    return res.status(400).json({ error: 'Missing email, password, or role' });
+  }
+
+  try {
+    const sql = "SELECT * FROM teacher_user WHERE user_email = ?";
+    const [result] = await pool.query(sql, [email]);
+
+    if (result.length === 0) {
+      return res.status(401).json({ error: "Email not registered" });
+    }
+
+    const user = result[0];
+    const isPasswordValid = user.password
+    //await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    console.log('User authenticated successfully');
+
+    // Check if user's email exists in schoolcredentials
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
+    const [schoolResult] = await pool.query(schoolSql, [user.email]);
+
+    if (schoolResult.length === 0) {
+      return res.status(404).json({ error: "Student database not found" });
+    }
+
+    const schoolCredentials = schoolResult[0];
+
+    // Securely connect to the school database and store the connection globally
+    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+
+    console.log('Connected to the school database successfully');
+
+    // Return the user, along with the school database details, excluding sensitive information
+    return res.status(200).json({
+      message: "Login successful",
+      user: { email: user.user_email, name: user.name, role },
+      schoolDb: {
+        host: schoolCredentials.database_host,
+        database: schoolCredentials.database_name,
+      },
+    });
+
+  } catch (err) {
+    console.error('Error during login process:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
+ // Login authentication route
+ app.post('/studentlogin', async (req, res) => {
+  const { email, password, role } = req.body;
+
+  if (!email || !password || !role) {
+    return res.status(400).json({ error: 'Missing email, password, or role' });
+  }
+
+  try {
+    const sql = "SELECT * FROM student_user WHERE user_email = ?";
+    const [result] = await pool.query(sql, [email]);
+
+    if (result.length === 0) {
+      return res.status(401).json({ error: "Email not registered" });
+    }
+
+    const user = result[0];
+    const isPasswordValid = user.password
+    //await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({ error: "Invalid password" });
+    }
+
+    console.log('User authenticated successfully');
+
+    // Check if user's email exists in schoolcredentials
+    const schoolSql = "SELECT * FROM schoolcredentials WHERE email = ?";
+    const [schoolResult] = await pool.query(schoolSql, [user.email]);
+
+    if (schoolResult.length === 0) {
+      return res.status(404).json({ error: "Student database not found" });
+    }
+
+    const schoolCredentials = schoolResult[0];
+
+    // Securely connect to the school database and store the connection globally
+    schoolDbConnection = await connectToSchoolDatabase(schoolCredentials);
+
+    console.log('Connected to the school database successfully');
+
+    // Return the user, along with the school database details, excluding sensitive information
+    return res.status(200).json({
+      message: "Login successful",
+      user: { email: user.user_email, name: user.name, role },
+      schoolDb: {
+        host: schoolCredentials.database_host,
+        database: schoolCredentials.database_name,
+      },
+    });
+
+  } catch (err) {
+    console.error('Error during login process:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
 // Route to fetch students
 app.get('/students', async (req, res) => {
   try {
