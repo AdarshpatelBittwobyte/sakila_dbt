@@ -1,0 +1,116 @@
+
+
+
+
+.azure-data-analytics {
+    margin: 0;
+}
+
+.azure-data-analytics-container1 {
+    width: 100%;
+}
+
+.azure-data-analytics-container,
+.at-datansh-we-container,
+.talk-to-our {
+    position: absolute;
+    display: flex;
+    align-items: left;
+}
+
+.azure-data-analytics-container {
+    top: 72px;
+    left: 15px;
+    line-height: 27px;
+    width: 843.42px;
+    height: 81px;
+}
+
+.at-datansh-we-container {
+    top: 183px;
+    left: 15px;
+    line-height: 27px;
+    width: 853.93px;
+    height: 216px;
+}
+
+.talk-to-our {
+    top: calc(50% - 12.5px);
+    left: 13px;
+    line-height: 24px;
+    justify-content: center;
+    width: 149.23px;
+    height: 24px;
+}
+
+.heading-2,
+.link {
+    position: absolute;
+    left: 15px;
+}
+
+.heading-2 {
+    height: 1.01%;
+    top: 8.46%;
+    bottom: 90.53%;
+    background-color: #2e79be;
+    width: 50px;
+}
+
+.link {
+    top: calc(50% + 180.88px);
+    border-radius: 4px;
+    background-color: #37474f;
+    border: 1px solid #37474f;
+    box-sizing: border-box;
+    width: 174.91px;
+    height: 38px;
+    text-align: center;
+    color: #fff;
+}
+
+.azure-data-analytics1 {
+    color: #2e79be;
+}
+
+.heading-2-container {
+    font-size: 35px;
+    line-height: 42px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    width: 634.57px;
+    height: 42px;
+    color: #0f2b4f;
+}
+
+.divcol-lg-8 {
+    position: absolute;
+    height: calc(100% - 120px);
+    width: calc(100% - 1026.67px);
+    top: 60px;
+    right: 736.67px;
+    bottom: 60px;
+    left: 290px;
+}
+
+.azuredataanalyticssideimgpng-icon {
+    position: absolute;
+    top: calc(50% - 248.11px);
+    left: calc(50% + 238.33px);
+    width: 500px;
+    height: 496.23px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.section {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    height: 616.23px;
+    text-align: left;
+    font-size: 16px;
+    color: #212529;
+    font-family: Poppins;
+}
