@@ -1,38 +1,38 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Landing360 from './Landing360';
-
-const Header = () => {
+import Landing from './Landing';
+ 
+const Acadmic = () => {
   const [classList, setClassList] = useState(['All']);
   const [selectedClass, setSelectedClass] = useState('All');
   const [selectedAcademicYear, setSelectedAcademicYear] = useState('All');
   const [searchStudentId, setSearchStudentId] = useState('');
   const [searchFirstName, setSearchFirstName] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-
+ 
   const [studentAcademic, setStudentAcademic] = useState([]);
   const [filteredStudentAcademic, setFilteredStudentAcademic] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-
+ 
   useEffect(() => {
     fetchStudentAcademic();
   }, []);
-
+ 
   const fetchStudentAcademic = async () => {
     try {
-      const response = await fetch('http://localhost:8081/students');
+      const response = await fetch('http://localhost:2001/api/studentAcademic');
       if (!response.ok) {
         throw new Error('Failed to fetch');
       }
       const data = await response.json();
       setStudentAcademic(data);
       setFilteredStudentAcademic(data); // Initialize filtered data with full data set
-
+ 
       // Fetch unique class values
       const uniqueClasses = Array.from(new Set(data.map(student => student.Class)));
       setClassList(['All', ...uniqueClasses]); // Add 'All' option and set class list state
-
+ 
       setIsLoading(false);
     } catch (error) {
       console.error('Error fetching students:', error);
@@ -40,30 +40,30 @@ const Header = () => {
       setIsLoading(false);
     }
   };
-
+ 
   const filterData = useCallback(() => {
     let filteredData = studentAcademic;
-
+ 
     if (selectedClass !== 'All') {
       filteredData = filteredData.filter(student => student.Class.toString() === selectedClass);
     }
-
+ 
     if (selectedAcademicYear !== 'All') {
-      filteredData = filteredData.filter(student => student.Academic_Year === selectedAcademicYear);
+      filteredData = filteredData.filter(student => student.ACADEMIC_SESSION === selectedAcademicYear);
     }
-
+ 
     if (searchStudentId) {
       filteredData = filteredData.filter(student =>
         student.Student_Id.toString().toLowerCase().includes(searchStudentId.toLowerCase())
       );
     }
-
+ 
     if (searchFirstName) {
       filteredData = filteredData.filter(student =>
         student.First_Name.toLowerCase().includes(searchFirstName.toLowerCase())
       );
     }
-
+ 
     if (searchTerm) {
       filteredData = filteredData.filter(student =>
         student.Student_Id.toString().toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -72,14 +72,14 @@ const Header = () => {
         student.Major.toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
-
+ 
     setFilteredStudentAcademic(filteredData);
   }, [selectedClass, selectedAcademicYear, searchStudentId, searchFirstName, searchTerm, studentAcademic]);
-
+ 
   useEffect(() => {
     filterData();
   }, [filterData]);
-
+ 
   const handleReset = () => {
     setSelectedClass('All');
     setSelectedAcademicYear('All');
@@ -88,7 +88,7 @@ const Header = () => {
     setSearchTerm('');
     setFilteredStudentAcademic(studentAcademic);
   };
-
+ 
   const formatEnrollmentDate = (dateString) => {
     console.log("dateString:", dateString); // Log the dateString parameter
     if (dateString) {
@@ -97,14 +97,14 @@ const Header = () => {
       return ''; // Return an empty string or handle the case appropriately
     }
   };
-
+ 
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
       body, h1, h2, h3, h4, h5, h6, p, a, input, button, th, td, label, select {
         font-family: 'Arial', sans-serif;
       }
-
+ 
       .header-input {
         background-color: #009CE0;
         color: white;
@@ -113,32 +113,33 @@ const Header = () => {
         border-radius: 3px;
         box-shadow: inset 0 1px 2px rgba(234, 218, 218, 0.1);
         text-align: center;
-        margin-right: 15px;
+       
+       
       }
-
+ 
       .header-input::placeholder {
         color: white;
       }
-
+ 
       .filter-dropdown, .search-box {
         width: 140px; /* Adjust the width as needed */
         margin-right: 15px; /* Adjust the margin as needed */
       }
-
+ 
       .filter-container label {
         margin-right: 5px;
       }
-
+ 
       .table-container {
         display: flex;
         justify-content: center;
       }
-
+ 
       .table {
         margin: 0 auto;
         width: 90%; /* Adjust the width as needed */
       }
-
+ 
       .table th {
         border: 3px solid #dee2e6;  /* Add border to table header cells */
         padding: 10px;
@@ -147,11 +148,11 @@ const Header = () => {
         overflow: hidden; /* Hide content if it overflows */
         text-overflow: ellipsis; /* Show ellipsis (...) if content overflows */
       }
-
+ 
       .table td {
         border: 3px solid #dee2e6;  /* Add border to table data cells */
         padding: 4px;
-        text-align: center; /* Center align the text in table data cells */
+        text-align: left; /* Center align the text in table data cells */
         white-space: nowrap; /* Ensure content in columns doesn't wrap */
         overflow: hidden; /* Hide content if it overflows */
         text-overflow: ellipsis; /* Show ellipsis (...) if content overflows */
@@ -163,35 +164,53 @@ const Header = () => {
         z-index: 999;
         background-color: #ffffff; /* Set background color for sticky header */
       }
-
+ 
       .table-container {
         max-height: 80vh; /* Set max height for the table */
         overflow-y: auto; /* Enable vertical scrolling */
       }
+ 
+       .header {
+        background: #34495E;
+        color: #FFFFFF;
+        border-radius: 10px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+ 
+      .header h1 {
+        font-size: 1.5rem;
+        margin: 0;
+      }
+ 
    
     `;
     document.head.appendChild(style);
-
+ 
     return () => {
       document.head.removeChild(style);
     };
   }, []);
-
+ 
   if (isLoading) {
     return <div>Loading...</div>;
   }
-
+ 
   if (error) {
     return <div>Error: {error}</div>;
   }
-
+ 
   return (
     <div className="header-container">
-      <Landing360 /> {/* Render your custom Navbar component */}
-      <div className="container-fluid" style={{ marginTop: '13vh', width: '100%', padding: 0 }}>
+      <Landing />
+      <div className="container-fluid" style={{ marginTop: '14vh', width: '100%', padding: 0 }}>
         <div className="container-fluid d-flex flex-column" style={{ minHeight: '100vh' }}>
-          <div className="p-2 mb-2 d-flex justify-content-between align-items-center" style={{ background: '#34495E', color: '#FFFFFF' }}>
-            <h1 style={{ fontSize: '1.5rem' }}>Academic Management</h1>
+        <div className="header">
+            <h1>Academic </h1>
           </div>
           <div className="filter-container d-flex justify-content-start mb-3 flex-wrap">
             <div className="filter-group d-flex align-items-center">
@@ -235,7 +254,7 @@ const Header = () => {
                 value={selectedAcademicYear}
                 onChange={(e) => setSelectedAcademicYear(e.target.value)}
               >
-                {Array.from(new Set(studentAcademic.map(student => student.Academic_Year))).map((year, index) => (
+                {Array.from(new Set(studentAcademic.map(student => student.ACADEMIC_SESSION))).map((year, index) => (
                   <option key={index} value={year}>{year}</option>
                 ))}
               </select>
@@ -258,7 +277,6 @@ const Header = () => {
                 <thead className="sticky-header thead-dark"> {/* Adding sticky-header class */}
                   <tr>
                     <th scope="col">Student ID</th>
-                    <th scope="col">Record ID</th>
                     <th scope="col">First Name</th>
                     <th scope="col">Middle Name</th>
                     <th scope="col">Last Name</th>
@@ -274,10 +292,9 @@ const Header = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredStudentAcademic.map(student => (
-                    <tr key={student.Student_Id}>
-                      <td>{student.Student_Id}</td>
-                      <td>{student.Record_ID}</td>
+                {filteredStudentAcademic.map(student => ( // Changed 'event' to 'student'
+    <tr key={student.EVENT_ID}>
+      <td className="sticky-column">{student.STUDENT_ID}</td> {/* Updated 'student' here */}
                       <td>{student.First_Name}</td>
                       <td>{student.Middle_Name}</td>
                       <td>{student.Last_Name}</td>
@@ -287,7 +304,7 @@ const Header = () => {
                       <td>{student.OBTAINED_MARKS}</td>
                       <td>{student.MAX_MARKS}</td>
                       <td>{student.EXAM_NAME}</td>
-                      <td>{student.Academic_Year}</td>
+                      <td>{student.ACADEMIC_SESSION}</td>
                       <td>{formatEnrollmentDate(student.REC_CREATE_DATE)}</td>
                       <td>{student.CREATED_BY}</td>
                     </tr>
@@ -301,6 +318,7 @@ const Header = () => {
     </div>
   );
 };
-
-export default Header;
  
+ 
+export default Acadmic;
+  

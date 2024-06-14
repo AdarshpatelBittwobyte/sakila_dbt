@@ -1,43 +1,94 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './My Component/Login.js';
-import Landing360 from './My Component/Landing360.js';
-import Contact from './My Component/contact360.js';
-import HomePage from './My Component/Homepage360.js';
-import Home360 from './My Component/home360.js';
-import Header from './My Component/Acadmic.js';
-import Attendance from './My Component/Attendance.js';
-import Profile from './My Component/profile.js';
-import TeacherProfile from './My Component/Teacher Profile.js';
-import TeacherAttendance from './My Component/Teacher Attendance.js';
-import Timetable from './My Component/Time Table .js';
-import ExamTimeTable from './My Component/Exam Time Table.js';
-import Events from './My Component/Event360.js';
-
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import Login from './Login';
+import Landing from './My Component/Landing';
+import Navbar from './Navbar';
+import Home from './Home';
+import Acadmic from './My Component/Acadmic';
+import StudentAttendance from './My Component/Student_Attendance';
+import Profile from './My Component/profile';
+import TeacherProfile from './My Component/Teacher_Profile';
+import TeacherAttendance from './My Component/Teacher_Attendance';
+import TimeTable from './My Component/Time_Table';
+import ExamSheduling from './My Component/Exam_Sheduling';
+ 
+import Signup from './Signup';
+import Event from './My Component/Event';
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Authentication state
+
   return (
-   
-      <Router>
-        <Routes>
-          <Route path="/Login" element={<Login />} />
-          <Route path="/contact360" element={<Contact />} />
-          <Route path="/Landing360" element={<Landing360 />} />
-          <Route path="/Homepage360" element={<HomePage />} />
-          <Route path="/Attendance" element={<Attendance />} />
-          <Route path="/Acadmic" element={<Header />} />
-          <Route path="/profile" element={< Profile/>} />
-          <Route path="/Teacher Profile" element={< TeacherProfile/>} />
-          <Route path="/Teacher Attendance" element={< TeacherAttendance/>} />
-          <Route path="/Time Table" element={< Timetable/>} />
-          <Route path="/Exam Time Table" element={< ExamTimeTable/>} />
-          <Route path="/Event360" element={< Events/>} />
-          <Route path="/" element={<Home360 />} />
-        </Routes>
-      </Router>
-   
+    <Router>
+      <Routes>
+        <Route
+          path="/Login"
+          element={<Login setIsAuthenticated={setIsAuthenticated} />}
+        />
+        <Route path="/signup" element={<Signup />} />
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        {/* Private Routes */}
+        <Route
+          path="/Landing"
+          element={
+            isAuthenticated ? <Landing /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Navbar"
+          element={
+            isAuthenticated ? <Navbar /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Student_Attendance"
+          element={
+            isAuthenticated ? <StudentAttendance /> : <Navigate to="/Login" replace />
+          }
+        /> 
+        <Route
+          path="/Acadmic"
+          element={isAuthenticated ? <Acadmic /> : <Navigate to="/Login" replace />}
+        />
+        
+        <Route
+          path="/Profile"
+          element={isAuthenticated ? <Profile /> : <Navigate to="/Login" replace />}
+        />
+        <Route
+          path="/Teacher_Profile"
+          element={
+            isAuthenticated ? <TeacherProfile /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Teacher_Attendance"
+          element={
+            isAuthenticated ? <TeacherAttendance /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Time_Table"
+          element={
+            isAuthenticated ? <TimeTable /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Exam_Sheduling"
+          element={
+            isAuthenticated ? <ExamSheduling /> : <Navigate to="/Login" replace />
+          }
+        />
+        <Route
+          path="/Event"
+          element={
+            isAuthenticated ? <Event /> : <Navigate to="/Login" replace />
+          }
+        />
+      </Routes>
+    </Router>
   );
 };
 
 export default App;
-
